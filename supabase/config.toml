@@ -1,0 +1,29 @@
+# Supabase CLI configuration for Project T.E.C.H.
+# Link to your hosted project with: supabase link --project-ref <your-project-ref>
+project_id = "project-tech-capstone"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173"]
+
+[functions.second-take]
+verify_jwt = false
