@@ -31,7 +31,8 @@ Welcome → Readiness Check-in (10 questions) → Readiness Snapshot → Top Pri
 | **Certificate** | Branded PDF per module with name, module, date, and skills demonstrated, plus a celebration. |
 
 A red **crisis bar** (988 and 211, tap-to-call) is fixed to the bottom of every page, and a pausable
-**affirmation ticker** runs across the top.
+**affirmation ticker** runs across the top. A **light/dark mode** switch sits in the header; it follows the
+device setting until the learner picks one.
 
 ## Features at a glance
 
@@ -42,6 +43,7 @@ A red **crisis bar** (988 and 211, tap-to-call) is fixed to the bottom of every 
 - **Second Take coach**: built-in coaching messages that run on the device (`src/lib/coach.ts`), plus an optional **Ask Second Take** AI chat powered by Claude through a Supabase Edge Function.
 - **Progress + sync**: saved to `localStorage` and, when configured, to Supabase through an offline-safe retry queue.
 - **Hidden admin dashboard** at `/admin-demo`: total assessments, module completion, and average readiness. Aggregates only, no personal data.
+- **Dark mode** (`src/lib/theme.ts`, `.dark` tokens in `src/index.css`): every text/background pair meets WCAG AA in both themes. Certificates stay light so they print well.
 - **Accessibility**: WCAG AA color contrast, skip link, visible focus rings, 44px+ tap targets, screen reader labels, keyboard-operable radio groups, reduced-motion support, and a pausable ticker.
 
 ## Privacy by design

@@ -53,8 +53,8 @@ export default function ResourcesPage() {
               className={cn(
                 "inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 px-4 text-sm font-semibold has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/30",
                 focus === o.tag
-                  ? "border-primary-dark bg-primary-dark text-white"
-                  : "border-line bg-white text-ink hover:border-primary",
+                  ? "border-primary-strong bg-primary-strong text-white"
+                  : "border-line bg-card text-ink hover:border-primary",
               )}
             >
               <input
@@ -78,7 +78,7 @@ export default function ResourcesPage() {
         ))}
       </ol>
 
-      <Card className="mt-8 border-crisis/40 bg-red-50">
+      <Card className="mt-8 border-crisis/40 bg-crisis-soft">
         <CardContent className="flex flex-col gap-3 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-bold text-ink">In crisis or need to talk right now?</h2>
@@ -89,7 +89,7 @@ export default function ResourcesPage() {
           </div>
           <a
             href="tel:988"
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-crisis-dark px-5 font-bold text-white hover:bg-[#9b1624]"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-crisis-strong px-5 font-bold text-white hover:bg-[#9b1624]"
           >
             <Phone aria-hidden className="size-5" /> Call 988
           </a>

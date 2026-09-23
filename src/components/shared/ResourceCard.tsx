@@ -7,7 +7,7 @@ export function ResourceCard({ match, rank }: { match: MatchedResource; rank?: n
   return (
     <article
       aria-labelledby={`res-${resource.id}`}
-      className="flex h-full flex-col rounded-3xl border border-line bg-white p-6 shadow-soft"
+      className="flex h-full flex-col rounded-3xl border border-line bg-card p-6 shadow-soft"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -40,7 +40,7 @@ export function ResourceCard({ match, rank }: { match: MatchedResource; rank?: n
         {resource.phone && resource.phoneHref && (
           <a
             href={resource.phoneHref}
-            className="inline-flex min-h-11 items-center gap-2 rounded-2xl bg-primary-dark px-4 text-sm font-semibold text-white hover:bg-[#166e66]"
+            className="inline-flex min-h-11 items-center gap-2 rounded-2xl bg-primary-strong px-4 text-sm font-semibold text-white hover:bg-[#11564f]"
             aria-label={`Call ${resource.name} at ${resource.phone}`}
           >
             <Phone aria-hidden className="size-4" /> {resource.phone}

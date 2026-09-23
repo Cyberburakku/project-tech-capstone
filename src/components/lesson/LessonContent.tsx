@@ -63,7 +63,7 @@ export function LessonContent({ lesson }: { lesson: Lesson }) {
       {lesson.blocks.map((b, i) => (
         <Block key={i} block={b} />
       ))}
-      <section aria-labelledby="takeaways" className="rounded-3xl bg-white p-5 shadow-soft">
+      <section aria-labelledby="takeaways" className="rounded-3xl bg-card p-5 shadow-soft">
         <h2 id="takeaways" className="text-lg font-bold text-ink">
           Key takeaways
         </h2>

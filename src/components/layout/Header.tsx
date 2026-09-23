@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Home, Map, LifeBuoy, BarChart3 } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 
@@ -38,15 +39,18 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        {profile && (
-          <div
-            className="flex size-10 items-center justify-center rounded-full bg-achievement text-base font-bold text-ink md:size-11"
-            aria-label={`Signed in as ${profile.firstName}`}
-            role="img"
-          >
-            {profile.firstName.charAt(0).toUpperCase()}
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          {profile && (
+            <div
+              className="flex size-10 items-center justify-center rounded-full bg-achievement text-base font-bold text-on-bright md:size-11"
+              aria-label={`Signed in as ${profile.firstName}`}
+              role="img"
+            >
+              {profile.firstName.charAt(0).toUpperCase()}
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
@@ -57,7 +61,7 @@ export function MobileNav() {
   return (
     <nav
       aria-label="Main"
-      className="fixed inset-x-0 bottom-[calc(3.5rem+4px+env(safe-area-inset-bottom))] z-40 border-t border-line bg-white/95 backdrop-blur md:hidden"
+      className="fixed inset-x-0 bottom-[calc(3.5rem+4px+env(safe-area-inset-bottom))] z-40 border-t border-line bg-card/95 backdrop-blur md:hidden"
     >
       <ul className="grid grid-cols-4">
         {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (

@@ -5,7 +5,7 @@ export function CrisisBar() {
   return (
     <aside
       aria-label="Crisis support"
-      className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-crisis bg-crisis-dark text-white pb-[env(safe-area-inset-bottom)]"
+      className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-crisis bg-crisis-strong text-white pb-[env(safe-area-inset-bottom)]"
     >
       <div className="container-app flex min-h-14 items-center justify-between gap-2 py-1.5">
         <p className="flex items-center gap-2 text-sm font-semibold sm:text-base">
@@ -15,7 +15,7 @@ export function CrisisBar() {
         <div className="flex items-center gap-2">
           <a
             href="tel:988"
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-white px-3 text-sm font-bold text-crisis-dark hover:bg-red-50 focus-visible:outline-white sm:px-4 sm:text-base"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-white px-3 text-sm font-bold text-[#b91c2c] hover:bg-red-50 focus-visible:outline-white sm:px-4 sm:text-base"
             aria-label="Call or text 988, the Suicide and Crisis Lifeline"
           >
             <Phone aria-hidden className="size-4" /> 988

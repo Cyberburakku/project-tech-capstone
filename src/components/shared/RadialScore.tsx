@@ -16,7 +16,7 @@ export function RadialScore({
   size = 180,
   stroke = 16,
   color = "#2EC4B6",
-  track = "#F1E8DA",
+  track = "var(--color-ring-track)",
   label,
   sublabel,
 }: RadialScoreProps) {
@@ -86,7 +86,7 @@ export function MultiRing({
         const offset = c * (1 - s.value / 100);
         return (
           <g key={s.key}>
-            <circle cx={size / 2} cy={size / 2} r={r} stroke="#F1E8DA" strokeWidth={stroke} fill="none" />
+            <circle cx={size / 2} cy={size / 2} r={r} stroke="var(--color-ring-track)" strokeWidth={stroke} fill="none" />
             <motion.circle
               cx={size / 2}
               cy={size / 2}

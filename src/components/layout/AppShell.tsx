@@ -28,7 +28,7 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-dvh flex-col">
-      <a href="#main" className="sr-only-focusable rounded-xl bg-ink px-4 py-3 font-semibold text-white">
+      <a href="#main" className="sr-only-focusable rounded-xl bg-ink px-4 py-3 font-semibold text-cream">
         Skip to main content
       </a>
       <Header />

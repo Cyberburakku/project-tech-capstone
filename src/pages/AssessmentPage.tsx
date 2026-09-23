@@ -129,16 +129,16 @@ export default function AssessmentPage() {
                   tabIndex={tabbable ? 0 : -1}
                   onClick={() => setDraftAnswer(question.id, option.id)}
                   className={cn(
-                    "flex min-h-14 w-full items-center gap-3 rounded-2xl border-2 bg-white px-4 py-3 text-left text-base font-medium text-ink shadow-[0_3px_0_0_#eee5d8] transition-all hover:border-primary hover:bg-primary-soft/50",
+                    "flex min-h-14 w-full items-center gap-3 rounded-2xl border-2 bg-card px-4 py-3 text-left text-base font-medium text-ink shadow-[0_3px_0_0_var(--color-line)] transition-all hover:border-primary hover:bg-primary-soft/50",
                     isSelected
-                      ? "border-primary-dark bg-primary-soft shadow-[0_3px_0_0_#1a7f76]"
+                      ? "border-primary-dark bg-primary-soft shadow-[0_3px_0_0_var(--color-primary-strong)]"
                       : "border-line",
                   )}
                 >
                   <span
                     className={cn(
                       "flex size-7 shrink-0 items-center justify-center rounded-full border-2",
-                      isSelected ? "border-primary-dark bg-primary-dark text-white" : "border-input",
+                      isSelected ? "border-primary-strong bg-primary-strong text-white" : "border-input",
                     )}
                     aria-hidden
                   >

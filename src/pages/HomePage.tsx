@@ -248,9 +248,9 @@ function Dashboard() {
               .slice(0, 3)
               .map((p) => (
                 <li key={p.lesson.id}>
-                  <Card className={p.status === "locked" ? "opacity-70" : "border-primary"}>
+                  <Card className={p.status === "locked" ? "bg-muted/60" : "border-primary"}>
                     <CardContent className="flex items-center gap-3 p-4">
-                      <span className={`flex size-10 shrink-0 items-center justify-center rounded-full ${p.status === "current" ? "bg-primary text-ink" : "bg-muted text-ink-soft"}`}>
+                      <span className={`flex size-10 shrink-0 items-center justify-center rounded-full ${p.status === "current" ? "bg-primary text-on-bright" : "bg-muted text-ink-soft"}`}>
                         {p.status === "locked" ? <Lock aria-hidden className="size-4" /> : <Target aria-hidden className="size-5" />}
                       </span>
                       <div className="min-w-0">
@@ -275,7 +275,7 @@ function Dashboard() {
       )}
 
       <section aria-labelledby="story-heading">
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">Story of the day</p>
             <h2 id="story-heading" className="mt-1 text-xl font-bold text-ink">{story.headline}</h2>

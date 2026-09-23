@@ -13,7 +13,7 @@ export function AffirmationTicker() {
       aria-label="Daily affirmations"
       className="relative flex items-center overflow-hidden border-b border-achievement/40 bg-achievement-soft text-ink"
     >
-      <span className="z-10 flex h-10 shrink-0 items-center gap-1.5 bg-achievement px-3 text-xs font-bold uppercase tracking-wide text-ink">
+      <span className="z-10 flex h-10 shrink-0 items-center gap-1.5 bg-achievement px-3 text-xs font-bold uppercase tracking-wide text-on-bright">
         <Sparkles aria-hidden className="size-4" />
         <span className="hidden sm:inline">Affirmations</span>
       </span>

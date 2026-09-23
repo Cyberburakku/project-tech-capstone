@@ -15,6 +15,18 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Apply the saved or device theme before first paint (no white flash).
+      (function () {
+        try {
+          var t = localStorage.getItem("project-tech:theme");
+          if (t !== "light" && t !== "dark") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          if (t === "dark") document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
     <title>Project T.E.C.H. · Second Take Reentry Coach</title>
   </head>
   <body>

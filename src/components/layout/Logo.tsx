@@ -17,7 +17,7 @@ export function Logo() {
       <LogoMark />
       <span className="leading-tight">
         <span className="block text-base font-extrabold tracking-tight text-ink">Project T.E.C.H.</span>
-        <span className="block text-[11px] font-medium text-ink-soft">Tools • Education • Connectivity • Hope</span>
+        <span className="block text-[11px] font-medium text-ink-soft max-[400px]:hidden">Tools • Education • Connectivity • Hope</span>
       </span>
     </Link>
   );

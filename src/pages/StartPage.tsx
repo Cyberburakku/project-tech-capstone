@@ -80,7 +80,7 @@ export default function StartPage() {
               <div className="relative">
               <select
                 id="county"
-                className="flex min-h-12 w-full appearance-none rounded-2xl border-2 border-input bg-white px-4 py-3 pr-12 text-base text-ink focus-visible:border-primary-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25 aria-[invalid=true]:border-crisis"
+                className="flex min-h-12 w-full appearance-none rounded-2xl border-2 border-input bg-card px-4 py-3 pr-12 text-base text-ink focus-visible:border-primary-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25 aria-[invalid=true]:border-crisis"
                 aria-invalid={Boolean(errors.county)}
                 aria-describedby={errors.county ? "county-help county-error" : "county-help"}
                 {...register("county", { required: "Please choose a county (or “Not sure yet”)." })}

@@ -116,7 +116,7 @@ export default function CertificatePage() {
               <p className="font-bold text-ink">{formatDate(issuedAt)}</p>
               <p className="text-ink-soft">Date</p>
             </div>
-            <span className="flex size-16 items-center justify-center rounded-full bg-achievement text-[10px] font-extrabold text-ink ring-4 ring-action/60 ring-offset-2 ring-offset-cream">
+            <span className="flex size-16 items-center justify-center rounded-full bg-achievement text-[10px] font-extrabold text-on-bright ring-4 ring-action/60 ring-offset-2 ring-offset-cream">
               T.E.C.H.
             </span>
             <div>

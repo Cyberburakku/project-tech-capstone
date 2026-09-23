@@ -73,11 +73,11 @@ function Quiz({ activity, onComplete }: ActivityProps & { activity: Extract<Less
               <label
                 key={opt}
                 className={cn(
-                  "flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 bg-white px-4 py-3 text-ink shadow-[0_3px_0_0_#eee5d8] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/30",
+                  "flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 bg-card px-4 py-3 text-ink shadow-[0_3px_0_0_var(--color-line)] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/30",
                   selected && !checked && "border-primary-dark bg-primary-soft",
                   !selected && !showCorrect && "border-line",
                   showCorrect && "border-primary-dark bg-primary-soft",
-                  showWrong && "border-crisis bg-red-50",
+                  showWrong && "border-crisis bg-crisis-soft",
                   checked && "cursor-default",
                 )}
               >
@@ -93,8 +93,8 @@ function Quiz({ activity, onComplete }: ActivityProps & { activity: Extract<Less
                   aria-hidden
                   className={cn(
                     "flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-input",
-                    selected && "border-primary-dark bg-primary-dark text-white",
-                    showCorrect && "border-primary-dark bg-primary-dark text-white",
+                    selected && "border-primary-strong bg-primary-strong text-white",
+                    showCorrect && "border-primary-strong bg-primary-strong text-white",
                     showWrong && "border-crisis bg-crisis text-white",
                   )}
                 >
@@ -160,7 +160,7 @@ function Checklist({
           <li key={item}>
             <label
               className={cn(
-                "flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 bg-white px-4 py-3 text-ink shadow-[0_3px_0_0_#eee5d8] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/30",
+                "flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 bg-card px-4 py-3 text-ink shadow-[0_3px_0_0_var(--color-line)] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/30",
                 checks[i] ? "border-primary-dark bg-primary-soft" : "border-line",
               )}
             >
@@ -169,7 +169,7 @@ function Checklist({
                 aria-hidden
                 className={cn(
                   "flex size-7 shrink-0 items-center justify-center rounded-lg border-2",
-                  checks[i] ? "border-primary-dark bg-primary-dark text-white" : "border-input",
+                  checks[i] ? "border-primary-strong bg-primary-strong text-white" : "border-input",
                 )}
               >
                 {checks[i] && <Check className="size-4" />}
@@ -248,7 +248,7 @@ function Builder({
         ))}
       </div>
       <div>
-        <div className="sticky top-24 rounded-3xl border-2 border-dashed border-primary bg-white p-5">
+        <div className="sticky top-24 rounded-3xl border-2 border-dashed border-primary bg-card p-5">
           <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">Live preview</p>
           <p className="mt-2 text-lg leading-relaxed text-ink" aria-live="polite">
             {preview}

@@ -71,7 +71,7 @@ export function AskSecondTake({ context }: { context: { topOpportunity?: string;
                   key={s}
                   type="button"
                   onClick={() => send(s)}
-                  className="min-h-11 rounded-full border-2 border-line bg-white px-4 text-left text-sm font-medium text-ink hover:border-primary"
+                  className="min-h-11 rounded-full border-2 border-line bg-card px-4 text-left text-sm font-medium text-ink hover:border-primary"
                 >
                   {s}
                 </button>
@@ -83,7 +83,7 @@ export function AskSecondTake({ context }: { context: { topOpportunity?: string;
               key={i}
               className={cn(
                 "max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-[15px]",
-                t.role === "user" ? "ml-auto bg-primary-dark text-white" : "bg-primary-soft text-ink",
+                t.role === "user" ? "ml-auto bg-primary-strong text-white" : "bg-primary-soft text-ink",
               )}
             >
               <span className="sr-only">{t.role === "user" ? "You said: " : "Second Take said: "}</span>

@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: <html class="dark"> (set before paint in index.html). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ---------- Design tokens ---------- */
 @theme {
   --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Brand */
   --color-primary: #2ec4b6;
-  --color-primary-dark: #1a7f76; /* AA text on cream / white */
+  --color-primary-dark: #176f67; /* AA text on cream, white and soft teal */
   --color-primary-soft: #e3f7f5;
   --color-action: #ff6b35;
   --color-action-dark: #c2410c; /* AA text on white */
@@ -19,7 +22,16 @@
   --color-ink-soft: #4a6572;
   --color-crisis: #e63946;
   --color-crisis-dark: #b91c2c;
+  --color-crisis-soft: #fdecee;
   --color-line: #eee5d8;
+
+  /* Solid fills that carry white text (same in light and dark). */
+  --color-primary-strong: #176f67;
+  --color-action-strong: #c2410c;
+  --color-crisis-strong: #b91c2c;
+  /* Dark text for bright fills (teal, orange, gold) in both themes. */
+  --color-on-bright: #264653;
+  --color-ring-track: #f1e8da;
 
   /* shadcn semantic aliases */
   --color-background: var(--color-cream);
@@ -41,11 +53,40 @@
   --shadow-lift: 0 4px 10px rgba(38, 70, 83, 0.08), 0 18px 40px rgba(38, 70, 83, 0.12);
   --shadow-button: 0 4px 0 0 rgba(38, 70, 83, 0.18);
 
-  --animate-ticker: ticker 60s linear infinite;
+  --animate-ticker: ticker 90s linear infinite;
   @keyframes ticker {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+}
+
+/* ---------- Dark theme ----------
+ * Every text/background pair below meets WCAG AA (4.5:1) on the dark surfaces.
+ * "-dark" tokens are used as text colours, so they become lighter here.
+ */
+.dark {
+  color-scheme: dark;
+  --color-cream: #0f1d24;
+  --color-ink: #eef4f3;
+  --color-ink-soft: #b3c6cb;
+  --color-line: #2a4450;
+  --color-primary-dark: #5fe0d3;
+  --color-primary-soft: #123f3d;
+  --color-action-dark: #ffa47f;
+  --color-action-soft: #45261a;
+  --color-achievement-dark: #ffcf8a;
+  --color-achievement-soft: #3b2f18;
+  --color-crisis-dark: #ff9aa2;
+  --color-crisis-soft: #3d1c21;
+  --color-ring-track: #2a4450;
+
+  --color-card: #172a33;
+  --color-muted: #1f3540;
+  --color-input: #3b5966;
+  --color-ring: #5fe0d3;
+
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 4px 10px rgba(0, 0, 0, 0.35), 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
 @layer base {
@@ -64,7 +105,7 @@
   }
   ::selection {
     background: var(--color-achievement);
-    color: var(--color-ink);
+    color: var(--color-on-bright);
   }
   @media (prefers-reduced-motion: reduce) {
     *,

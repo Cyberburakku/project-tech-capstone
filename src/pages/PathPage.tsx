@@ -93,7 +93,7 @@ export default function PathPage() {
             <section key={group.moduleId} aria-labelledby={`mod-${module.id}`}>
               <div className={cn("rounded-3xl p-5 text-ink", style.soft)}>
                 <div className="flex items-center gap-3">
-                  <span className={cn("flex size-12 items-center justify-center rounded-2xl text-ink", style.bg)}>
+                  <span className={cn("flex size-12 items-center justify-center rounded-2xl text-on-bright", style.bg)}>
                     <ModuleIcon icon={module.icon} className="size-6" />
                   </span>
                   <div className="flex-1">
@@ -116,7 +116,7 @@ export default function PathPage() {
                 <p className="mt-2 text-sm text-ink-soft">{module.description}</p>
                 <Progress
                   value={mp.percent}
-                  className="mt-3 bg-white"
+                  className="mt-3 bg-card"
                   indicatorClassName={style.bg}
                   aria-label={`${module.title}: ${mp.done} of ${mp.total} lessons complete`}
                 />
@@ -146,9 +146,9 @@ function PathNode({ item, offset, hex }: { item: PathLesson; offset: number; hex
     <span
       className={cn(
         "relative flex size-20 items-center justify-center rounded-full border-b-[6px] text-white transition-transform",
-        status === "completed" && "border-[#d99a3d] bg-achievement text-ink",
-        status === "current" && "border-[#10534d] bg-primary-dark hover:scale-105",
-        status === "locked" && "border-[#d9cfc1] bg-muted text-ink-soft",
+        status === "completed" && "border-[#d99a3d] bg-achievement text-on-bright",
+        status === "current" && "border-[#10534d] bg-primary-strong hover:scale-105",
+        status === "locked" && "border-input bg-muted text-ink-soft",
       )}
     >
       {status === "completed" && <Check aria-hidden className="size-9" strokeWidth={3} />}

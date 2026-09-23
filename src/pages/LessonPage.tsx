@@ -275,7 +275,7 @@ function LessonFlow({ lessonId }: { lessonId: string }) {
               className="mx-auto flex size-24 items-center justify-center rounded-full bg-achievement shadow-lift"
               aria-hidden
             >
-              <Trophy className="size-12 text-ink" />
+              <Trophy className="size-12 text-on-bright" />
             </motion.span>
             <h1 ref={headingRef} tabIndex={-1} className="mt-5 text-3xl font-extrabold text-ink outline-none">
               {cheer}

@@ -34,7 +34,7 @@ export function CoachMessage({
       className={cn("flex items-start gap-3", className)}
     >
       <SecondTakeAvatar className="size-12 shrink-0" />
-      <div className="relative rounded-3xl rounded-tl-md border border-primary/30 bg-white p-4 shadow-soft">
+      <div className="relative rounded-3xl rounded-tl-md border border-primary/30 bg-card p-4 shadow-soft">
         <p className="mb-1 text-xs font-bold uppercase tracking-wide text-primary-dark">{title}</p>
         <div className="text-[15px] leading-relaxed text-ink">{children}</div>
       </div>

@@ -134,7 +134,7 @@ export default function ProgressPage() {
               return (
                 <div key={m.id} className="rounded-2xl border border-line p-4">
                   <div className="flex items-center gap-3">
-                    <span className={cn("flex size-10 items-center justify-center rounded-xl text-ink", style.bg)}>
+                    <span className={cn("flex size-10 items-center justify-center rounded-xl text-on-bright", style.bg)}>
                       <ModuleIcon icon={m.icon} className="size-5" />
                     </span>
                     <div className="flex-1">
@@ -213,7 +213,7 @@ export default function ProgressPage() {
               <>
                 <Button
                   size="sm"
-                  className="bg-crisis-dark shadow-none hover:bg-[#9b1624]"
+                  className="bg-crisis-strong shadow-none hover:bg-[#9b1624]"
                   onClick={() => {
                     resetAll();
                     navigate("/");

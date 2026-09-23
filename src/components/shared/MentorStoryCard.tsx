@@ -19,7 +19,7 @@ function initials(name: string) {
 
 export function MentorStoryCard({ story, compact = false }: { story: MentorStory; compact?: boolean }) {
   return (
-    <article aria-labelledby={`${story.id}-title`} className="overflow-hidden rounded-3xl bg-white shadow-soft">
+    <article aria-labelledby={`${story.id}-title`} className="overflow-hidden rounded-3xl bg-card shadow-soft">
       <header className="bg-gradient-to-br from-primary-soft to-achievement-soft p-6">
         <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-primary-dark">
           <Footprints aria-hidden className="size-4" /> Someone Who Walked This Path
@@ -27,7 +27,7 @@ export function MentorStoryCard({ story, compact = false }: { story: MentorStory
         <div className="mt-4 flex items-center gap-4">
           <span
             aria-hidden
-            className="flex size-16 shrink-0 items-center justify-center rounded-full bg-primary-dark text-xl font-extrabold text-white ring-4 ring-white"
+            className="flex size-16 shrink-0 items-center justify-center rounded-full bg-primary-strong text-xl font-extrabold text-white ring-4 ring-card"
           >
             {initials(story.name)}
           </span>
