@@ -12,12 +12,12 @@ export function moduleSkills(module: LearningModule): string[] {
   return Array.from(new Set(module.lessons.flatMap((l) => l.skills)));
 }
 
-const TEAL: [number, number, number] = [46, 196, 182];
-const TEAL_DARK: [number, number, number] = [26, 127, 118];
-const ORANGE: [number, number, number] = [255, 107, 53];
-const GOLD: [number, number, number] = [255, 191, 105];
-const INK: [number, number, number] = [38, 70, 83];
-const CREAM: [number, number, number] = [255, 251, 245];
+const TEAL: [number, number, number] = [44, 106, 92]; // sage
+const TEAL_DARK: [number, number, number] = [44, 106, 92];
+const ORANGE: [number, number, number] = [180, 71, 42]; // clay
+const GOLD: [number, number, number] = [242, 181, 68]; // sun
+const INK: [number, number, number] = [30, 43, 47];
+const CREAM: [number, number, number] = [251, 246, 238]; // paper
 
 /** Build and download a branded, landscape US-Letter PDF certificate. */
 export async function downloadCertificate(data: CertificateData): Promise<void> {
@@ -50,16 +50,21 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
     doc.circle(x, y, 4, "F");
   }
 
-  // Logo mark
+  // Logo mark: ink square, sun arc, horizon line
   const lx = cx - 22;
   const ly = 62;
-  doc.setFillColor(...TEAL);
-  doc.roundedRect(lx, ly, 44, 44, 12, 12, "F");
+  doc.setFillColor(...INK);
+  doc.roundedRect(lx, ly, 44, 44, 13, 13, "F");
   doc.setFillColor(...GOLD);
-  doc.circle(cx, ly + 17, 6, "F");
+  doc.circle(cx, ly + 28.5, 11.5, "F");
+  doc.setFillColor(...INK);
+  doc.rect(lx + 2, ly + 28.5, 40, 14, "F");
   doc.setDrawColor(...CREAM);
-  doc.setLineWidth(3.5);
-  doc.lines([[8, -10, 22, -10, 30, 0]], cx - 15, ly + 34, [1, 1], "S", false);
+  doc.setLineWidth(2.8);
+  doc.line(lx + 8, ly + 28.5, lx + 36, ly + 28.5);
+  doc.setLineWidth(2.8);
+  doc.setDrawColor(150, 150, 145);
+  doc.line(lx + 14.5, ly + 34.5, lx + 29.5, ly + 34.5);
 
   doc.setTextColor(...INK);
   doc.setFont("helvetica", "bold");
@@ -78,7 +83,7 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(13);
-  doc.setTextColor(74, 101, 114);
+  doc.setTextColor(68, 82, 79);
   doc.text("This certifies that", cx, 226, { align: "center" });
 
   // Name
@@ -93,7 +98,7 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(13);
-  doc.setTextColor(74, 101, 114);
+  doc.setTextColor(68, 82, 79);
   doc.text("has successfully completed the module", cx, 318, { align: "center" });
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
@@ -134,7 +139,7 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
   doc.text("Second Take", W - 200, footerY - 8, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
-  doc.setTextColor(74, 101, 114);
+  doc.setTextColor(68, 82, 79);
   doc.text("Date", 200, footerY + 14, { align: "center" });
   doc.text("Project T.E.C.H. Reentry Coach", W - 200, footerY + 14, { align: "center" });
 

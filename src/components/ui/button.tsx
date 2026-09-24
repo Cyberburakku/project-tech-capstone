@@ -4,24 +4,25 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl font-semibold transition-all select-none disabled:pointer-events-none disabled:opacity-50 active:translate-y-[2px] active:shadow-none [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl font-bold transition-all select-none disabled:pointer-events-none disabled:opacity-50 active:translate-y-[5px] active:shadow-none [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-action-strong text-white shadow-[0_4px_0_0_#8f2f09] hover:bg-[#b03a0a]",
-        primary: "bg-primary-strong text-white shadow-[0_4px_0_0_#10534d] hover:bg-[#11564f]",
+          "bg-clay-btn text-white shadow-[0_5px_0_0_var(--color-clay-press),0_14px_30px_-12px_rgba(131,49,27,0.5)] hover:[&_svg]:translate-x-[3px] [&_svg]:transition-transform",
+        primary: "bg-primary-strong text-white shadow-[0_5px_0_0_color-mix(in_srgb,var(--color-primary-strong)_60%,black)]",
         secondary:
-          "bg-card text-ink border-2 border-line shadow-[0_4px_0_0_var(--color-line)] hover:border-primary hover:bg-primary-soft",
+          "bg-card text-ink border-2 border-line hover:border-sage hover:bg-sage-soft active:translate-y-0",
         ghost: "text-ink hover:bg-muted",
-        link: "text-primary-dark underline-offset-4 hover:underline px-0 h-auto",
-        crisis: "bg-white text-[#b91c2c] hover:bg-red-50",
+        link: "text-sage underline decoration-2 underline-offset-[5px] px-0 h-auto",
+        crisis: "bg-white text-clay-press hover:bg-clay-soft",
       },
       size: {
         default: "min-h-12 px-6 py-3 text-base",
         sm: "min-h-11 px-4 text-sm",
         lg: "min-h-14 px-8 text-lg",
         icon: "size-12",
+        cta: "h-[58px] px-7 text-[19px] tracking-[0.005em] [&_svg]:size-[22px]",
       },
     },
     defaultVariants: { variant: "default", size: "default" },

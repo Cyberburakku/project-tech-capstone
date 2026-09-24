@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotionConfig } from "framer-motion";
 
-const COLORS = ["#2EC4B6", "#FF6B35", "#FFBF69", "#9B7EDE", "#3A86C8"];
+const COLORS = ["#2C6A5C", "#B4472A", "#F2B544", "#83311B", "#DDEBE4"];
 
 /** Lightweight confetti burst. Decorative only; skipped for reduced motion. */
 export function Celebration({ pieces = 60 }: { pieces?: number }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
   const confetti = useMemo(
     () =>
       Array.from({ length: pieces }, (_, i) => ({

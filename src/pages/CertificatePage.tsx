@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotionConfig } from "framer-motion";
 import { ArrowLeft, Award, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Celebration } from "@/components/shared/Celebration";
@@ -20,7 +20,7 @@ export default function CertificatePage() {
   const completed = useAppStore((s) => s.completedLessons);
   const certificate = useAppStore((s) => (module ? s.certificates[module.id] : undefined));
   const issueCertificate = useAppStore((s) => s.issueCertificate);
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -77,7 +77,7 @@ export default function CertificatePage() {
       </CoachMessage>
 
       <motion.section
-        initial={reduce ? false : { opacity: 0, scale: 0.94, rotate: -1 }}
+        initial={reduce ? false : { scale: 0.94, rotate: -1 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 120, damping: 14 }}
         aria-labelledby="cert-title"

@@ -1,16 +1,44 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
-import { Header, MobileNav } from "@/components/layout/Header";
-import { AffirmationTicker } from "@/components/layout/AffirmationTicker";
-import { CrisisBar } from "@/components/layout/CrisisBar";
+import { MotionConfig } from "framer-motion";
+import { Header } from "@/components/layout/Header";
+import { TabBar } from "@/components/layout/TabBar";
+import { HelpSheet } from "@/components/layout/HelpSheet";
+import { SettingsSheet } from "@/components/layout/SettingsSheet";
+import { ShellContext, type SheetName, type ShellState } from "@/components/layout/ShellContext";
 import { useAppStore } from "@/store/useAppStore";
+import { applyTheme, getInitialTheme, saveTheme, type Theme } from "@/lib/theme";
+import { getInitialStill, saveStill } from "@/lib/motion";
 
 export function AppShell() {
   const location = useLocation();
-  const reduceMotion = useReducedMotion();
   const mainRef = useRef<HTMLElement>(null);
+  const firstRender = useRef(true);
   const flush = useAppStore((s) => s.flush);
+
+  const [sheet, setSheet] = useState<SheetName | null>(null);
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+  const [still, setStillState] = useState<boolean>(getInitialStill);
+
+  useEffect(() => applyTheme(theme), [theme]);
+  useEffect(() => {
+    document.documentElement.classList.toggle("still", still);
+  }, [still]);
+
+  const setTheme = useCallback((t: Theme) => {
+    saveTheme(t);
+    setThemeState(t);
+  }, []);
+  const setStill = useCallback((v: boolean) => {
+    saveStill(v);
+    setStillState(v);
+  }, []);
+  const closeSheet = useCallback(() => setSheet(null), []);
+
+  const shell = useMemo<ShellState>(
+    () => ({ openSheet: setSheet, theme, setTheme, still, setStill }),
+    [theme, setTheme, still, setStill],
+  );
 
   // Retry any unsynced progress on load and when the connection comes back.
   useEffect(() => {
@@ -20,36 +48,45 @@ export function AppShell() {
     return () => window.removeEventListener("online", onOnline);
   }, [flush]);
 
-  // Move focus to main content on route change for screen reader users.
+  // On route change: back to the top, focus main for screen reader users, close sheets.
   useEffect(() => {
+    setSheet(null);
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     window.scrollTo({ top: 0 });
     mainRef.current?.focus({ preventScroll: true });
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <a href="#main" className="sr-only-focusable rounded-xl bg-ink px-4 py-3 font-semibold text-cream">
-        Skip to main content
-      </a>
-      <Header />
-      <AffirmationTicker />
-      <main
-        id="main"
-        ref={mainRef}
-        tabIndex={-1}
-        className="flex-1 pb-40 outline-none md:pb-24"
-      >
-        <motion.div
-          key={location.pathname}
-          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-        >
-          <Outlet />
-        </motion.div>
-      </main>
-      <MobileNav />
-      <CrisisBar />
-    </div>
+    <ShellContext.Provider value={shell}>
+      <MotionConfig reducedMotion={still ? "always" : "user"}>
+        <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper web:max-w-none">
+          <a
+            href="#main"
+            onClick={(e) => {
+              e.preventDefault();
+              mainRef.current?.focus();
+            }}
+            className="sr-only-focusable rounded-xl bg-ink px-3.5 py-2.5 font-bold text-paper"
+          >
+            Skip to main content
+          </a>
+          <Header />
+          <main
+            id="main"
+            ref={mainRef}
+            tabIndex={-1}
+            className="flex-1 pb-[calc(110px+env(safe-area-inset-bottom))] outline-none web:pb-20"
+          >
+            <Outlet />
+          </main>
+          <TabBar />
+        </div>
+        <HelpSheet open={sheet === "help"} onClose={closeSheet} />
+        <SettingsSheet open={sheet === "settings"} onClose={closeSheet} />
+      </MotionConfig>
+    </ShellContext.Provider>
   );
 }

@@ -77,7 +77,7 @@ export default function ProgressPage() {
           <CardContent>
             <div className="flex flex-wrap items-center justify-around gap-4">
               <div className="text-center">
-                <RadialScore value={first.overall} size={110} stroke={10} color="#C9BBA6" label="First check-in" />
+                <RadialScore value={first.overall} size={110} stroke={10} color="var(--color-ink-3)" label="First check-in" />
                 <p className="mt-1 text-sm font-semibold text-ink-soft">First · {formatDate(first.takenAt)}</p>
               </div>
               <div className="text-center">
@@ -134,7 +134,7 @@ export default function ProgressPage() {
               return (
                 <div key={m.id} className="rounded-2xl border border-line p-4">
                   <div className="flex items-center gap-3">
-                    <span className={cn("flex size-10 items-center justify-center rounded-xl text-on-bright", style.bg)}>
+                    <span className={cn("flex size-10 items-center justify-center rounded-xl", style.soft, style.text)}>
                       <ModuleIcon icon={m.icon} className="size-5" />
                     </span>
                     <div className="flex-1">
@@ -213,7 +213,7 @@ export default function ProgressPage() {
               <>
                 <Button
                   size="sm"
-                  className="bg-crisis-strong shadow-none hover:bg-[#9b1624]"
+                  className="bg-crisis-strong shadow-none hover:bg-clay-press"
                   onClick={() => {
                     resetAll();
                     navigate("/");

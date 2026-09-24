@@ -89,7 +89,7 @@ export default function ResourcesPage() {
           </div>
           <a
             href="tel:988"
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-crisis-strong px-5 font-bold text-white hover:bg-[#9b1624]"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-crisis-strong px-5 font-bold text-white hover:bg-clay-press"
           >
             <Phone aria-hidden className="size-5" /> Call 988
           </a>

@@ -2,7 +2,7 @@ export type Theme = "light" | "dark";
 
 export const THEME_STORAGE_KEY = "project-tech:theme";
 
-const THEME_COLORS: Record<Theme, string> = { light: "#2EC4B6", dark: "#0f1d24" };
+const THEME_COLORS: Record<Theme, string> = { light: "#FBF6EE", dark: "#141B1D" };
 
 /** Saved choice, or the device setting when the learner hasn't picked one. */
 export function getInitialTheme(): Theme {

@@ -1,133 +1,130 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Clock,
-  Flame,
-  HeartHandshake,
-  Lock,
-  Quote,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Target,
-  Users,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Clock, Flame, Lock, Quote, Target } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { CoachMessage } from "@/components/shared/SecondTake";
 import { RadialScore } from "@/components/shared/RadialScore";
-import { PathIllustration } from "@/components/shared/Illustration";
 import { AskSecondTake } from "@/components/shared/AskSecondTake";
+import { HeroScene } from "@/components/home/HeroScene";
+import { ThoughtCard } from "@/components/home/ThoughtCard";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { CoachCard } from "@/components/home/CoachCard";
+import { RoughDay } from "@/components/home/RoughDay";
+import { HomeFooter } from "@/components/home/HomeFooter";
 import { isAiCoachEnabled } from "@/lib/supabase";
 import { CATEGORY_META } from "@/data/assessment";
 import { useAppStore, selectLatestAssessment } from "@/store/useAppStore";
-import { randomAffirmation } from "@/data/affirmations";
 import { getStoryOfTheDay } from "@/data/mentors";
 import { buildPath, currentLesson, learningStreak, overallProgress } from "@/lib/progress";
 import { greeting, homeMessage } from "@/lib/coach";
+import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   const profile = useAppStore((s) => s.profile);
   return profile ? <Dashboard /> : <Welcome />;
 }
 
-function AffirmationCard() {
-  const affirmation = useMemo(() => randomAffirmation(), []);
+function Rule() {
+  return <div role="presentation" className="mx-6 my-10 h-px bg-line web:mx-0 web:my-16" />;
+}
+
+function PrivacyNote() {
   return (
-    <Card className="relative overflow-hidden border-achievement/50 bg-achievement-soft">
-      <CardContent className="flex items-start gap-3 p-5">
-        <Sparkles aria-hidden className="mt-0.5 size-6 shrink-0 text-achievement-dark" />
-        <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-achievement-dark">Today's affirmation</p>
-          <p className="mt-1 text-lg font-semibold text-ink">“{affirmation}”</p>
-        </div>
-      </CardContent>
-    </Card>
+    <>
+      <Link
+        to="/privacy"
+        className="inline-flex min-h-11 items-center text-base font-bold text-sage underline decoration-[color-mix(in_srgb,var(--color-sage)_35%,transparent)] decoration-2 underline-offset-[5px] hover:decoration-sage"
+      >
+        How we protect your privacy
+      </Link>
+      <p className="mt-0.5 flex items-start gap-2.5 text-[15px] leading-snug text-ink-3">
+        <Clock aria-hidden="true" className="mt-0.5 size-[18px] shrink-0" />
+        About 3 minutes. Free. No account or password.
+      </p>
+    </>
   );
 }
 
+/**
+ * Landing for new visitors.
+ * Phone: full-bleed painting under a transparent header, copy in the sky,
+ * CTA on the path just above the tab bar. Web (≥900px): split hero.
+ */
 function Welcome() {
-  const features = [
-    { icon: Target, title: "Know where you stand", text: "A 10-question check-in shows your strengths and next steps." },
-    { icon: Smartphone, title: "Build real skills", text: "Short lessons on phones, email, jobs, and talking about your past." },
-    { icon: Users, title: "Grow your support", text: "Reconnect with people and find new support you can count on." },
-    { icon: HeartHandshake, title: "Find trusted help", text: "Your top 3 Maine resources — no endless lists." },
-  ];
   return (
-    <div className="container-app">
-      <section className="grid items-center gap-8 pt-8 pb-10 md:grid-cols-2 md:pt-14">
-        <div>
-          <Badge variant="achievement" className="mb-4">
-            <Sparkles aria-hidden /> Free · Private · Judgment-free
-          </Badge>
-          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
-            Your next chapter <span className="text-primary-dark">starts here.</span>
+    <>
+      <section
+        aria-labelledby="hero-h"
+        className={cn(
+          // phone: painting fills the hero, header overlays it (−64px)
+          "relative -mt-16 h-[max(calc(min(100vw,430px)*1.7539),660px)]",
+          // web: two columns, painting in a large rounded frame on the right
+          "web:mx-auto web:mt-0 web:grid web:h-auto web:max-w-[72rem] web:grid-cols-[1fr_1.05fr] web:grid-rows-[1fr_auto_1fr] web:gap-x-16 web:px-10 web:pt-8",
+        )}
+      >
+        <div className="absolute inset-0 web:relative web:col-start-2 web:row-span-3 web:row-start-1 web:aspect-[4/5] web:max-h-[calc(100dvh-120px)] web:min-h-[520px] web:w-full web:overflow-hidden web:rounded-3xl web:shadow-lift">
+          <HeroScene />
+          {/* soft landing into the page */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 -bottom-px z-[1] h-[13%] bg-[linear-gradient(to_bottom,transparent,var(--color-paper))] web:hidden"
+          />
+        </div>
+
+        <div className="relative z-[2] px-6 pt-[82px] web:col-start-1 web:row-start-1 web:self-end web:px-0 web:pt-0">
+          <p className="text-[15px] font-bold tracking-[0.01em] text-sage">For people coming home in Maine</p>
+          <h1 id="hero-h" className="mt-1.5 text-[41px] leading-[1.04] text-ink max-[374px]:text-[37px] web:text-[68px] web:leading-[1.02]">
+            Your next chapter
+            <br />
+            <em className="serif-italic text-clay">starts here.</em>
           </h1>
-          <p className="mt-4 text-lg text-ink-soft">
-            Project T.E.C.H. helps you get ready for life after release — one small, doable step at a time.
-            Meet <strong className="text-ink">Second Take</strong>, your reentry coach.
-          </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link to="/start">
-                Get started <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/privacy">
-                <ShieldCheck aria-hidden /> How we protect you
-              </Link>
-            </Button>
-          </div>
-          <p className="mt-4 flex items-center gap-2 text-sm text-ink-soft">
-            <Clock aria-hidden className="size-4" /> Takes about 3 minutes. No account or password needed.
+          <p className="mt-3 max-w-[30ch] text-[17px] leading-normal text-ink-2 web:mt-5 web:text-xl">
+            Get ready for life after release with <strong className="text-ink">Second&nbsp;Take</strong>, your reentry
+            coach.
           </p>
         </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <PathIllustration className="w-full drop-shadow-sm" />
-        </motion.div>
+
+        {/* CTA: on the painted path, always above the tab bar (never below the fold on short phones) */}
+        <div className="absolute inset-x-6 z-[2] top-[clamp(300px,calc(100svh-150px-env(safe-area-inset-bottom)),calc(100%-68px))] web:static web:col-start-1 web:row-start-2 web:mt-8">
+          <Link to="/start" className={cn(buttonVariants({ size: "cta" }), "w-full web:w-auto web:px-10")}>
+            Get started <ArrowRight aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="hidden web:col-start-1 web:row-start-3 web:mt-4 web:block web:self-start">
+          <PrivacyNote />
+        </div>
       </section>
 
-      <AffirmationCard />
+      <div className="px-6 pt-3.5 web:hidden">
+        <PrivacyNote />
+      </div>
 
-      <section aria-labelledby="how-heading" className="py-10">
-        <h2 id="how-heading" className="text-2xl font-bold text-ink">How it works</h2>
-        <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map(({ icon: Icon, title, text }, i) => (
-            <motion.li
-              key={title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-            >
-              <Card className="h-full">
-                <CardContent className="p-5">
-                  <span className="mb-3 flex size-12 items-center justify-center rounded-2xl bg-primary-soft text-primary-dark">
-                    <Icon aria-hidden className="size-6" />
-                  </span>
-                  <h3 className="font-bold text-ink">{title}</h3>
-                  <p className="mt-1 text-sm text-ink-soft">{text}</p>
-                </CardContent>
-              </Card>
-            </motion.li>
-          ))}
-        </ul>
-      </section>
-
-      <CoachMessage className="mb-10">
-        Hi, I'm Second Take. I'm here to help you prepare — no judgment, ever. We'll only ask your first
-        name and county. Nothing about your case, your record, or your release date.
-      </CoachMessage>
-    </div>
+      <div className="web:mx-auto web:max-w-[72rem] web:px-10">
+        <Rule />
+        <section aria-labelledby="thought-h" className="px-6 web:px-0">
+          <ThoughtCard />
+        </section>
+        <Rule />
+        <div className="px-6 web:px-0">
+          <HowItWorks />
+        </div>
+        <Rule />
+        <div className="px-6 web:grid web:grid-cols-2 web:items-stretch web:gap-10 web:px-0">
+          <CoachCard />
+          <div className="web:hidden">
+            <Rule />
+          </div>
+          <div className="web:pt-[84px]">
+            <RoughDay />
+          </div>
+        </div>
+        <HomeFooter />
+      </div>
+    </>
   );
 }
 
@@ -142,10 +139,10 @@ function Dashboard() {
   const story = getStoryOfTheDay();
 
   return (
-    <div className="container-app space-y-6 pt-6 sm:pt-10">
+    <div className="container-app space-y-6 pt-6 web:pt-10">
       <div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-          {greeting(profile.firstName)} 👋
+        <h1 className="text-[34px] leading-[1.08] text-ink web:text-5xl">
+          {greeting(profile.firstName)}
         </h1>
         <p className="mt-1 text-ink-soft">{profile.county === "Outside Maine" || profile.county === "Not sure yet" ? "Maine" : `${profile.county} County, Maine`}</p>
       </div>
@@ -160,7 +157,9 @@ function Dashboard() {
         })}
       </CoachMessage>
 
-      <AffirmationCard />
+      <section aria-labelledby="thought-h">
+        <ThoughtCard />
+      </section>
 
       {!latest ? (
         <Card className="border-primary/40">
@@ -250,7 +249,7 @@ function Dashboard() {
                 <li key={p.lesson.id}>
                   <Card className={p.status === "locked" ? "bg-muted/60" : "border-primary"}>
                     <CardContent className="flex items-center gap-3 p-4">
-                      <span className={`flex size-10 shrink-0 items-center justify-center rounded-full ${p.status === "current" ? "bg-primary text-on-bright" : "bg-muted text-ink-soft"}`}>
+                      <span className={`flex size-10 shrink-0 items-center justify-center rounded-full ${p.status === "current" ? "bg-primary-strong text-white" : "bg-muted text-ink-soft"}`}>
                         {p.status === "locked" ? <Lock aria-hidden className="size-4" /> : <Target aria-hidden className="size-5" />}
                       </span>
                       <div className="min-w-0">
@@ -289,6 +288,9 @@ function Dashboard() {
           </CardContent>
         </Card>
       </section>
+
+      <RoughDay />
+      <HomeFooter />
     </div>
   );
 }

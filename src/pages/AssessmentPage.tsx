@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotionConfig } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -20,7 +20,7 @@ const ENCOURAGEMENT: Record<number, string> = {
 
 export default function AssessmentPage() {
   const navigate = useNavigate();
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
   const answers = useAppStore((s) => s.draftAnswers);
   const setDraftAnswer = useAppStore((s) => s.setDraftAnswer);
   const submitAssessment = useAppStore((s) => s.submitAssessment);
@@ -91,7 +91,7 @@ export default function AssessmentPage() {
         <motion.section
           key={question.id}
           custom={direction}
-          initial={reduce ? false : { opacity: 0, x: direction * 40 }}
+          initial={reduce ? false : { x: direction * 40 }}
           animate={{ opacity: 1, x: 0 }}
           exit={reduce ? undefined : { opacity: 0, x: direction * -40 }}
           transition={{ duration: 0.22 }}

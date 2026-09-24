@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotionConfig } from "framer-motion";
 
 interface RadialScoreProps {
   value: number;
@@ -15,12 +15,12 @@ export function RadialScore({
   value,
   size = 180,
   stroke = 16,
-  color = "#2EC4B6",
+  color = "var(--color-sage)",
   track = "var(--color-ring-track)",
   label,
   sublabel,
 }: RadialScoreProps) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const offset = c * (1 - Math.min(100, Math.max(0, value)) / 100);
@@ -68,7 +68,7 @@ export function MultiRing({
   size?: number;
   label?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
   const stroke = 12;
   const gap = 5;
   return (

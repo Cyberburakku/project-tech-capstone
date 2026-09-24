@@ -2,42 +2,37 @@ import type { AssessmentQuestion, CategoryKey } from "@/types";
 
 export const CATEGORY_META: Record<
   CategoryKey,
-  { label: string; longLabel: string; description: string; color: string; hex: string }
+  { label: string; longLabel: string; description: string; hex: string }
 > = {
   technology: {
     label: "Technology",
     longLabel: "Technology Readiness",
     description: "Using phones, computers, and the internet with confidence.",
-    color: "text-primary-dark",
-    hex: "#2EC4B6",
+    hex: "var(--color-sage)",
   },
   support: {
     label: "Support",
     longLabel: "Support Network Strength",
     description: "People you can count on and stay in touch with.",
-    color: "text-action-dark",
-    hex: "#FF6B35",
+    hex: "var(--color-clay)",
   },
   employment: {
     label: "Employment",
     longLabel: "Employment Readiness",
     description: "Confidence finding work and talking about your past.",
-    color: "text-achievement-dark",
-    hex: "#FFBF69",
+    hex: "var(--color-sun)",
   },
   hope: {
     label: "Hope",
     longLabel: "Community & Hope",
     description: "Feeling prepared, connected, and hopeful about what is next.",
-    color: "text-[#6d4bb3]",
-    hex: "#9B7EDE",
+    hex: "var(--color-ink)",
   },
   resources: {
     label: "Resources",
     longLabel: "Resource Navigation",
     description: "Knowing where to go for help when you need it.",
-    color: "text-[#2f6690]",
-    hex: "#3A86C8",
+    hex: "var(--color-ink-3)",
   },
 };
 

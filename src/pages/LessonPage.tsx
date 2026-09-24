@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotionConfig } from "framer-motion";
 import { ArrowLeft, ArrowRight, Award, BookOpen, Clock, Footprints, Lock, PenLine, Puzzle, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -75,7 +75,7 @@ function LessonFlow({ lessonId }: { lessonId: string }) {
   const module = getModule(lesson.moduleId)!;
   const mentor = getMentorStory(lesson.mentorStoryId);
   const navigate = useNavigate();
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
 
   const profile = useAppStore((s) => s.profile)!;
   const latest = useAppStore(selectLatestAssessment);
@@ -159,7 +159,7 @@ function LessonFlow({ lessonId }: { lessonId: string }) {
 
       <motion.div
         key={step}
-        initial={reduce ? false : { opacity: 0, x: 24 }}
+        initial={reduce ? false : { x: 24 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.25 }}
       >

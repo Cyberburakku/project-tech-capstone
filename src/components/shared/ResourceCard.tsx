@@ -40,7 +40,7 @@ export function ResourceCard({ match, rank }: { match: MatchedResource; rank?: n
         {resource.phone && resource.phoneHref && (
           <a
             href={resource.phoneHref}
-            className="inline-flex min-h-11 items-center gap-2 rounded-2xl bg-primary-strong px-4 text-sm font-semibold text-white hover:bg-[#11564f]"
+            className="inline-flex min-h-11 items-center gap-2 rounded-2xl bg-primary-strong px-4 text-sm font-semibold text-white hover:bg-[color-mix(in_srgb,var(--color-primary-strong)_85%,black)]"
             aria-label={`Call ${resource.name} at ${resource.phone}`}
           >
             <Phone aria-hidden className="size-4" /> {resource.phone}

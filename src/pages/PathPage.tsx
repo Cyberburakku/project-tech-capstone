@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotionConfig } from "framer-motion";
 import { Award, Check, Clock, Lock, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -93,11 +93,11 @@ export default function PathPage() {
             <section key={group.moduleId} aria-labelledby={`mod-${module.id}`}>
               <div className={cn("rounded-3xl p-5 text-ink", style.soft)}>
                 <div className="flex items-center gap-3">
-                  <span className={cn("flex size-12 items-center justify-center rounded-2xl text-on-bright", style.bg)}>
+                  <span className={cn("flex size-12 items-center justify-center rounded-2xl", style.soft, style.text)}>
                     <ModuleIcon icon={module.icon} className="size-6" />
                   </span>
                   <div className="flex-1">
-                    <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">
+                    <p className="text-xs font-bold uppercase tracking-wide text-ink">
                       Unit {gi + 1}
                       {gi === 0 && latest ? " · Your top priority" : ""}
                     </p>
@@ -113,7 +113,7 @@ export default function PathPage() {
                     </Button>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-ink-soft">{module.description}</p>
+                <p className="mt-2 text-sm text-ink">{module.description}</p>
                 <Progress
                   value={mp.percent}
                   className="mt-3 bg-card"
@@ -138,7 +138,7 @@ export default function PathPage() {
 }
 
 function PathNode({ item, offset, hex }: { item: PathLesson; offset: number; hex: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionConfig();
   const { lesson, status } = item;
   const label = `${lesson.title}. ${status === "completed" ? "Completed" : status === "current" ? "Current lesson, ready to start" : "Locked"}. ${lesson.minutes} minutes.`;
 
@@ -146,8 +146,8 @@ function PathNode({ item, offset, hex }: { item: PathLesson; offset: number; hex
     <span
       className={cn(
         "relative flex size-20 items-center justify-center rounded-full border-b-[6px] text-white transition-transform",
-        status === "completed" && "border-[#d99a3d] bg-achievement text-on-bright",
-        status === "current" && "border-[#10534d] bg-primary-strong hover:scale-105",
+        status === "completed" && "border-[color-mix(in_srgb,var(--color-sun)_65%,black)] bg-achievement text-on-bright",
+        status === "current" && "border-[color-mix(in_srgb,var(--color-primary-strong)_60%,black)] bg-primary-strong hover:scale-105",
         status === "locked" && "border-input bg-muted text-ink-soft",
       )}
     >

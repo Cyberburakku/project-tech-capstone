@@ -30,9 +30,24 @@ Welcome → Readiness Check-in (10 questions) → Readiness Snapshot → Top Pri
 | **Progress** | Lessons, reflections, modules, streak, and readiness change between check-ins. |
 | **Certificate** | Branded PDF per module with name, module, date, and skills demonstrated, plus a celebration. |
 
-A red **crisis bar** (988 and 211, tap-to-call) is fixed to the bottom of every page, and a pausable
-**affirmation ticker** runs across the top. A **light/dark mode** switch sits in the header; it follows the
-device setting until the learner picks one.
+Help is one tap away on every page: the **Help now** pill in the header opens a sheet with 988, the
+Crisis Text Line (741741), 211 Maine and 911. The home page also has a **Rough day?** card with 988 and 211.
+**Settings** (the menu button) holds the dark mode and "Pause animations" switches.
+
+## Design system
+
+- **Look:** gouache/print illustrations of the Maine coast, a paper grain over the whole page, Fraunces headlines
+  and Atkinson Hyperlegible body text (both OFL, bundled via Fontsource, no Google Fonts call).
+- **Palette** (`src/index.css`): paper `#FBF6EE`, ink `#1E2B2F`, clay `#B4472A`, sage `#2C6A5C`, sun `#F2B544`,
+  with a matching dark palette. Radii 12 / 18 / 28. The main button is a clay 3D press button.
+- **Layout:** a phone app shell (max 430px, sticky header, bottom tabs: Home, My path, Near me, Progress)
+  under 900px, and an editorial website layout at 900px and up. The installed app (`display-mode: standalone`)
+  keeps the phone shell even on a tablet. Help and Settings are bottom sheets on phones, centered dialogs on the web.
+- **Hero** (`src/components/home/HeroScene.tsx`): the painting is drawn through a WebGL shader: depth parallax
+  from pointer, tilt or idle drift, sea ripple, sun glitter, god rays masked off the sun, grain, and a dusk
+  grade for dark mode. It pauses offscreen, when the tab is hidden, or when motion is paused, and falls back to
+  the static painting without WebGL.
+- **Artwork** lives in `public/art/`; the PWA manifest and icons in `public/`.
 
 ## Features at a glance
 
@@ -44,7 +59,7 @@ device setting until the learner picks one.
 - **Progress + sync**: saved to `localStorage` and, when configured, to Supabase through an offline-safe retry queue.
 - **Hidden admin dashboard** at `/admin-demo`: total assessments, module completion, and average readiness. Aggregates only, no personal data.
 - **Dark mode** (`src/lib/theme.ts`, `.dark` tokens in `src/index.css`): every text/background pair meets WCAG AA in both themes. Certificates stay light so they print well.
-- **Accessibility**: WCAG AA color contrast, skip link, visible focus rings, 44px+ tap targets, screen reader labels, keyboard-operable radio groups, reduced-motion support, and a pausable ticker.
+- **Accessibility**: WCAG AA color contrast, skip link, sage focus rings, 44px+ tap targets, screen reader labels, keyboard-operable radio groups and dialogs (focus trap, Escape), and reduced motion (OS setting or the in-app "Pause animations" switch, which also freezes the hero shader). No content waits on an animation to appear.
 
 ## Privacy by design
 
@@ -56,7 +71,7 @@ browser insert rows but never read them back. See [SUPABASE_SETUP.md](./SUPABASE
 ## Tech stack
 
 React 19 · TypeScript · Vite · Tailwind CSS v4 · shadcn/ui (Radix) · React Router · Zustand · React Hook Form ·
-Framer Motion · Lucide icons · Supabase · jsPDF · Vitest · deploys to Vercel.
+Framer Motion · WebGL · Lucide icons · Supabase · jsPDF · Vitest · deploys to Vercel.
 
 ## Quick start
 

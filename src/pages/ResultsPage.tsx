@@ -130,7 +130,7 @@ export default function ResultsPage() {
       </div>
 
       {mission && (
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+        <motion.div initial={{ y: 16 }} animate={{ y: 0 }} transition={{ delay: 0.4 }}>
           <Card className="relative mt-6 overflow-hidden border-2 border-action">
             <div className="absolute -right-16 -top-16 size-48 rounded-full bg-action-soft" aria-hidden />
             <CardContent className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
