@@ -10,6 +10,9 @@ export interface ShellState {
   /** "Pause animations": freezes CSS, Framer Motion and the hero shader. */
   still: boolean;
   setStill: (still: boolean) => void;
+  /** Chosen avatar id (localStorage "secondtake_avatar_id"); null = neutral placeholder. */
+  avatarId: string | null;
+  setAvatarId: (id: string) => void;
 }
 
 export const ShellContext = createContext<ShellState | null>(null);

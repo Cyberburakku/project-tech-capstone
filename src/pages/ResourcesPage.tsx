@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Phone } from "lucide-react";
+import { Phone, Quote } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { ResourceCard } from "@/components/shared/ResourceCard";
 import { CoachMessage } from "@/components/shared/SecondTake";
@@ -95,6 +95,16 @@ export default function ResourcesPage() {
           </a>
         </CardContent>
       </Card>
+
+      <section aria-labelledby="voices-h" className="mt-8">
+        <h2 id="voices-h" className="text-2xl leading-tight text-ink">
+          Voices from the Path
+        </h2>
+        <div className="mt-3 flex items-start gap-3 rounded-3xl border-2 border-dashed border-line bg-card p-6">
+          <Quote aria-hidden className="mt-0.5 size-6 shrink-0 text-sage" />
+          <p className="text-ink-2">Testimonials from people who’ve walked this path are coming soon.</p>
+        </div>
+      </section>
     </div>
   );
 }

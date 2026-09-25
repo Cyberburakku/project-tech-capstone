@@ -9,6 +9,7 @@ import { ShellContext, type SheetName, type ShellState } from "@/components/layo
 import { useAppStore } from "@/store/useAppStore";
 import { applyTheme, getInitialTheme, saveTheme, type Theme } from "@/lib/theme";
 import { getInitialStill, saveStill } from "@/lib/motion";
+import { readAvatarId, saveAvatarId } from "@/components/shared/avatars";
 
 export function AppShell() {
   const location = useLocation();
@@ -19,6 +20,7 @@ export function AppShell() {
   const [sheet, setSheet] = useState<SheetName | null>(null);
   const [theme, setThemeState] = useState<Theme>(getInitialTheme);
   const [still, setStillState] = useState<boolean>(getInitialStill);
+  const [avatarId, setAvatarIdState] = useState<string | null>(readAvatarId);
 
   useEffect(() => applyTheme(theme), [theme]);
   useEffect(() => {
@@ -33,11 +35,15 @@ export function AppShell() {
     saveStill(v);
     setStillState(v);
   }, []);
+  const setAvatarId = useCallback((id: string) => {
+    saveAvatarId(id);
+    setAvatarIdState(id);
+  }, []);
   const closeSheet = useCallback(() => setSheet(null), []);
 
   const shell = useMemo<ShellState>(
-    () => ({ openSheet: setSheet, theme, setTheme, still, setStill }),
-    [theme, setTheme, still, setStill],
+    () => ({ openSheet: setSheet, theme, setTheme, still, setStill, avatarId, setAvatarId }),
+    [theme, setTheme, still, setStill, avatarId, setAvatarId],
   );
 
   // Retry any unsynced progress on load and when the connection comes back.

@@ -21,6 +21,8 @@ import { getStoryOfTheDay } from "@/data/mentors";
 import { buildPath, currentLesson, learningStreak, overallProgress } from "@/lib/progress";
 import { greeting, homeMessage } from "@/lib/coach";
 import { cn } from "@/lib/utils";
+import { AvatarArt } from "@/components/shared/avatars";
+import { useShell } from "@/components/layout/ShellContext";
 
 export default function HomePage() {
   const profile = useAppStore((s) => s.profile);
@@ -129,6 +131,7 @@ function Welcome() {
 }
 
 function Dashboard() {
+  const { avatarId, openSheet } = useShell();
   const profile = useAppStore((s) => s.profile)!;
   const latest = useAppStore(selectLatestAssessment);
   const completed = useAppStore((s) => s.completedLessons);
@@ -140,11 +143,21 @@ function Dashboard() {
 
   return (
     <div className="container-app space-y-6 pt-6 web:pt-10">
-      <div>
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => openSheet("settings")}
+          aria-label="Change your avatar"
+          className="shrink-0 rounded-full"
+        >
+          <AvatarArt id={avatarId} className="size-14 web:size-16" />
+        </button>
+        <div className="min-w-0">
         <h1 className="text-[34px] leading-[1.08] text-ink web:text-5xl">
           {greeting(profile.firstName)}
         </h1>
         <p className="mt-1 text-ink-soft">{profile.county === "Outside Maine" || profile.county === "Not sure yet" ? "Maine" : `${profile.county} County, Maine`}</p>
+        </div>
       </div>
 
       <CoachMessage>

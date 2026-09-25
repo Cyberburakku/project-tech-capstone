@@ -1,6 +1,53 @@
 import { Sheet, SheetClose } from "@/components/layout/Sheet";
 import { useShell } from "@/components/layout/ShellContext";
 import { cn } from "@/lib/utils";
+import { AVATARS, AvatarArt } from "@/components/shared/avatars";
+
+/** Avatar choice: a radio group of illustrated portraits (arrow keys move between them). */
+function AvatarPicker({ value, onChange }: { value: string | null; onChange: (id: string) => void }) {
+  const current = value ?? "";
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const keys: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (!(e.key in keys)) return;
+    e.preventDefault();
+    const i = AVATARS.findIndex((a) => a.id === current);
+    const next = AVATARS[(i + keys[e.key] + AVATARS.length) % AVATARS.length];
+    onChange(next.id);
+    document.getElementById(`avatar-${next.id}`)?.focus();
+  };
+  return (
+    <div className="border-b border-line py-4">
+      <p id="avatar-label" className="font-bold text-ink">
+        Your avatar
+      </p>
+      <p className="text-sm text-ink-2">Pick the one that feels most like you.</p>
+      <div role="radiogroup" aria-labelledby="avatar-label" onKeyDown={onKeyDown} className="mt-3 grid grid-cols-5 gap-2.5">
+        {AVATARS.map((a, i) => {
+          const selected = a.id === current;
+          const tabbable = selected || (!current && i === 0);
+          return (
+            <button
+              key={a.id}
+              id={`avatar-${a.id}`}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              aria-label={a.label}
+              tabIndex={tabbable ? 0 : -1}
+              onClick={() => onChange(a.id)}
+              className={cn(
+                "aspect-square min-h-11 rounded-full p-0.5 ring-offset-2 ring-offset-paper transition-shadow",
+                selected ? "ring-[3px] ring-sage" : "ring-1 ring-line hover:ring-2 hover:ring-sage/60",
+              )}
+            >
+              <AvatarArt id={a.id} className="size-full" />
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function Switch({ id, checked, onChange, label }: { id: string; checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
@@ -30,7 +77,7 @@ function Switch({ id, checked, onChange, label }: { id: string; checked: boolean
 }
 
 export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { theme, setTheme, still, setStill } = useShell();
+  const { theme, setTheme, still, setStill, avatarId, setAvatarId } = useShell();
   return (
     <Sheet id="sheet-settings" open={open} onClose={onClose} labelledBy="settings-h">
       <h2 id="settings-h" className="text-[26px] leading-tight text-ink">
@@ -52,6 +99,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
           </div>
           <Switch id="set-still" label="Pause animations" checked={still} onChange={setStill} />
         </div>
+        <AvatarPicker value={avatarId} onChange={setAvatarId} />
       </div>
       <SheetClose onClose={onClose}>Done</SheetClose>
     </Sheet>

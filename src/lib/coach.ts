@@ -46,10 +46,11 @@ export function homeMessage(opts: {
     return `Your path is ready, ${firstName}. Your first mission takes about five minutes. Let's go.`;
   if (lessonsDone === totalLessons)
     return `You finished every lesson, ${firstName}. That took real commitment. Retake your check-in to see how far you've come.`;
-  if (streak >= 3) return `${streak} days in a row! You're building a habit, ${firstName}. Keep it rolling.`;
+  // Re-engagement nudges: warm and pressure-free, never a day count.
+  if (streak >= 3) return "Your path is still here whenever you're ready.";
   if (lessonsDone >= totalLessons / 2)
     return `You're more than halfway there, ${firstName}. Look at what you've already done.`;
-  return `Welcome back, ${firstName}. Every lesson you finish is proof you're getting ready.`;
+  return "Missed you. Come pick up where you left off.";
 }
 
 export function improvementMessage(first: AssessmentResult, latest: AssessmentResult): string {
