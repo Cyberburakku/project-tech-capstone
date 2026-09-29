@@ -1,4 +1,4 @@
-# Supabase CLI configuration for Project T.E.C.H.
+# Supabase CLI configuration for Second Take
 # Link to your hosted project with: supabase link --project-ref <your-project-ref>
 project_id = "project-tech-capstone"
 

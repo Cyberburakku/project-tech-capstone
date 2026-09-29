@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Project T.E.C.H. (Tools • Education • Connectivity • Hope) — a reentry readiness app with Second Take, the reentry coach.",
+  "description": "Second Take — a free reentry coach app for people coming home in Maine.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -86,9 +86,9 @@ export default function CertificatePage() {
         <div className="rounded-2xl border-2 border-achievement px-6 py-10 text-center sm:px-12">
           <div className="flex flex-col items-center">
             <LogoMark className="size-12" />
-            <p className="mt-2 text-sm font-extrabold tracking-[0.2em] text-ink">PROJECT T.E.C.H.</p>
+            <p className="mt-2 text-sm font-extrabold tracking-[0.2em] text-ink">SECOND TAKE</p>
             <p className="text-[10px] font-semibold tracking-widest text-primary-dark">
-              TOOLS • EDUCATION • CONNECTIVITY • HOPE
+              YOUR REENTRY COACH
             </p>
           </div>
           <h1 id="cert-title" className="mt-6 text-3xl font-extrabold text-ink sm:text-4xl">
@@ -116,12 +116,13 @@ export default function CertificatePage() {
               <p className="font-bold text-ink">{formatDate(issuedAt)}</p>
               <p className="text-ink-soft">Date</p>
             </div>
-            <span className="flex size-16 items-center justify-center rounded-full bg-achievement text-[10px] font-extrabold text-on-bright ring-4 ring-action/60 ring-offset-2 ring-offset-cream">
-              T.E.C.H.
+            <span className="flex size-16 flex-col items-center justify-center rounded-full bg-achievement text-[9px] font-extrabold leading-tight text-on-bright ring-4 ring-action/60 ring-offset-2 ring-offset-cream">
+              <span>MODULE</span>
+              <span>COMPLETE</span>
             </span>
             <div>
               <p className="font-bold text-ink">Second Take</p>
-              <p className="text-ink-soft">Project T.E.C.H. Reentry Coach</p>
+              <p className="text-ink-soft">Your Reentry Coach</p>
             </div>
           </div>
           {code && <p className="mt-6 text-xs text-ink-soft">Certificate ID: {code}</p>}

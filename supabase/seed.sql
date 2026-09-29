@@ -1,4 +1,4 @@
--- Demo seed data for Project T.E.C.H. (fictional, no real people).
+-- Demo seed data for Second Take (fictional, no real people).
 -- Loaded automatically by `supabase db reset`, or paste into the SQL editor.
 -- Uses stable UUIDs so it is safe to re-run.
 

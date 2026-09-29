@@ -1,9 +1,7 @@
-# Project T.E.C.H.
+# Second Take
 
-**Tools • Education • Connectivity • Hope**
-
-Project T.E.C.H. is a free, mobile-first web app that helps people get ready for life after incarceration.
-Its built-in coach, **Second Take**, walks each learner from a 3-minute readiness check-in to a personalized
+Second Take is a free, mobile-first reentry coach that helps people get ready for life after incarceration.
+It walks each learner from a 3-minute readiness check-in to a personalized
 learning path, trusted Maine resources, and downloadable certificates.
 
 It is designed to feel like Duolingo or Headspace, not a government form: hopeful, structured, and judgment-free.

@@ -28,10 +28,10 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
   const cx = W / 2;
 
   doc.setProperties({
-    title: `Project T.E.C.H. Certificate — ${data.module.title}`,
+    title: `Second Take Certificate — ${data.module.title}`,
     subject: "Certificate of Completion",
-    author: "Project T.E.C.H.",
-    creator: "Project T.E.C.H. · Second Take",
+    author: "Second Take",
+    creator: "Second Take",
   });
 
   // Background + borders
@@ -69,11 +69,11 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
   doc.setTextColor(...INK);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
-  doc.text("PROJECT T.E.C.H.", cx, ly + 64, { align: "center", charSpace: 2 });
+  doc.text("SECOND TAKE", cx, ly + 64, { align: "center", charSpace: 2 });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(...TEAL_DARK);
-  doc.text("TOOLS  •  EDUCATION  •  CONNECTIVITY  •  HOPE", cx, ly + 78, { align: "center", charSpace: 1 });
+  doc.text("YOUR REENTRY COACH", cx, ly + 78, { align: "center", charSpace: 1 });
 
   // Title
   doc.setTextColor(...INK);
@@ -141,7 +141,7 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
   doc.setFontSize(9);
   doc.setTextColor(68, 82, 79);
   doc.text("Date", 200, footerY + 14, { align: "center" });
-  doc.text("Project T.E.C.H. Reentry Coach", W - 200, footerY + 14, { align: "center" });
+  doc.text("Your Reentry Coach", W - 200, footerY + 14, { align: "center" });
 
   // Seal
   doc.setFillColor(...GOLD);
@@ -152,7 +152,7 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(...INK);
-  doc.text("T.E.C.H.", cx, footerY - 6, { align: "center" });
+  doc.text("MODULE", cx, footerY - 6, { align: "center" });
   doc.setFontSize(6.5);
   doc.text("COMPLETE", cx, footerY + 4, { align: "center" });
 
@@ -161,5 +161,5 @@ export async function downloadCertificate(data: CertificateData): Promise<void> 
   doc.text(`Certificate ID: ${data.code}`, cx, H - 50, { align: "center" });
 
   const safeName = data.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "learner";
-  doc.save(`Project-TECH-${data.module.shortTitle.replace(/\s+/g, "-")}-${safeName}.pdf`);
+  doc.save(`Second-Take-${data.module.shortTitle.replace(/\s+/g, "-")}-${safeName}.pdf`);
 }

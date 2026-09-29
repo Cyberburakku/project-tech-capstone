@@ -1,6 +1,6 @@
 # Install Guide
 
-This guide gets Project T.E.C.H. running on your computer in about 5 minutes.
+This guide gets Second Take running on your computer in about 5 minutes.
 
 ## 1. What you need
 

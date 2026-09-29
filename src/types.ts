@@ -1,4 +1,4 @@
-/** Shared domain types for Project T.E.C.H. */
+/** Shared domain types for Second Take. */
 
 export type CategoryKey = "technology" | "support" | "employment" | "hope" | "resources";
 

@@ -1,6 +1,6 @@
 # Deployment Guide
 
-Project T.E.C.H. is a static single-page app. It deploys to **Vercel** in a few minutes.
+Second Take is a static single-page app. It deploys to **Vercel** in a few minutes.
 
 ## 1. Put the code on GitHub
 

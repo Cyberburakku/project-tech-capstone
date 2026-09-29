@@ -14,13 +14,13 @@ export function LogoMark({ className = "size-[34px]" }: { className?: string }) 
 
 export function Logo() {
   return (
-    <Link to="/" className="mr-auto flex items-center gap-2.5 rounded-xl max-[374px]:gap-2" aria-label="Project T.E.C.H. home">
+    <Link to="/" className="mr-auto flex items-center gap-2.5 rounded-xl max-[374px]:gap-2" aria-label="Second Take home">
       <LogoMark />
       <span
         className="whitespace-nowrap font-serif text-[19px] font-semibold tracking-[-0.01em] text-ink max-[374px]:text-[17px]"
         style={{ fontVariationSettings: '"opsz" 36, "SOFT" 100' }}
       >
-        Project TECH
+        Second Take
       </span>
     </Link>
   );
