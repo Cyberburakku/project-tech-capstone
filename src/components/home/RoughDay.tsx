@@ -56,7 +56,7 @@ export function RoughDay() {
           <h2 id="rough-h" className="text-[30px] leading-tight text-[#F4EEE4]">
             Rough day?
           </h2>
-          <p className="mt-1.5 max-w-[15em] text-base text-[#F4EEE4]/85">You don’t have to wait. Free, confidential, 24/7.</p>
+          <p className="mt-1.5 max-w-[15em] text-base text-[#F4EEE4]/85">You don’t have to wait. Free, private, 24/7.</p>
           <div className="mt-4 grid grid-cols-2 gap-2.5">
             {[
               { href: "tel:988", num: "988", label: "Call or text · crisis" },

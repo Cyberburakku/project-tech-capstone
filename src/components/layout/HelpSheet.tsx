@@ -5,7 +5,7 @@ const LINES = [
   {
     href: "tel:988",
     title: "988 Lifeline",
-    detail: "Call or text 988 · crisis or emotional distress",
+    detail: "Call or text 988 · crisis or feeling overwhelmed",
     icon: Phone,
     tint: "bg-clay-soft text-clay",
   },
@@ -31,7 +31,7 @@ export function HelpSheet({ open, onClose }: { open: boolean; onClose: () => voi
       <h2 id="help-h" className="text-[26px] leading-tight text-ink">
         Talk to someone now
       </h2>
-      <p className="mt-1.5 text-base text-ink-2">Free and confidential. You don’t have to say who you are.</p>
+      <p className="mt-1.5 text-base text-ink-2">Free and private. You don’t have to say who you are.</p>
       <ul className="mt-2">
         {LINES.map(({ href, title, detail, icon: Icon, tint }) => (
           <li key={href} className="border-b border-line last:border-b-0">

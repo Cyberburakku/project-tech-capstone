@@ -80,7 +80,7 @@ export function MentorStoryCard({ story, compact = false }: { story: MentorStory
           </>
         )}
         <p className="text-xs text-ink-soft">
-          Stories are composites inspired by common reentry experiences. Names and details are fictional.
+          These stories are based on common reentry experiences. Names and details are made up.
         </p>
       </div>
     </article>

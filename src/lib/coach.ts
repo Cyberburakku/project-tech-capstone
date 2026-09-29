@@ -9,14 +9,14 @@ import type { AssessmentResult, CategoryKey } from "@/types";
 
 const STRENGTH_LINES: Record<CategoryKey, string> = {
   technology: "You already have real comfort with technology. That will open a lot of doors.",
-  support: "You have people in your corner. That is one of the strongest predictors of success.",
+  support: "You have people in your corner. That is one of the best signs of success.",
   employment: "You feel ready to work, and employers notice that kind of confidence.",
   hope: "Your hope is strong. Hold onto that — it fuels everything else.",
   resources: "You know where to turn for help. That is a skill many people are still building.",
 };
 
 const OPPORTUNITY_LINES: Record<CategoryKey, string> = {
-  technology: "Let's build your tech confidence first. A few short lessons will make phones and computers feel a lot less intimidating.",
+  technology: "Let's build your tech confidence first. A few short lessons will make phones and computers feel a lot less scary.",
   support: "Let's start by strengthening your support network. Nobody does reentry alone, and you shouldn't have to.",
   employment: "Let's work on how you talk about your past with employers. It is a skill, and skills can be practiced.",
   hope: "Let's build some momentum. Every small win adds up, and you'll hear from people who walked this path.",
@@ -60,10 +60,10 @@ export function improvementMessage(first: AssessmentResult, latest: AssessmentRe
       .map((k) => ({ k, d: latest.scores[k] - first.scores[k] }))
       .sort((a, b) => b.d - a.d);
     const best = gains[0];
-    return `Your readiness is up ${diff} points since your first check-in. Biggest growth: ${CATEGORY_META[best.k].label} (+${best.d}).`;
+    return `You've grown ${diff} points since your first check-in. Biggest growth: ${CATEGORY_META[best.k].label} (+${best.d}).`;
   }
-  if (diff === 0) return "Your score held steady. Progress isn't always a straight line — keep going.";
-  return "Your score dipped a little. That's okay — being more honest about challenges is a kind of progress too.";
+  if (diff === 0) return "You're holding steady. Progress isn't always a straight line. Keep going.";
+  return "This check-in came out a little lower. That's okay. Being honest about hard things is progress too.";
 }
 
 export const LESSON_CHEERS = [

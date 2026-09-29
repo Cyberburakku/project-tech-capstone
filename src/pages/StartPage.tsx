@@ -108,7 +108,8 @@ export default function StartPage() {
 
           <p className="mt-6 flex items-start gap-2 rounded-2xl bg-primary-soft p-4 text-sm text-ink">
             <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-primary-dark" />
-            We never ask for your birthday, Social Security number, record, release date, or health information.
+            Right now, Second Take only asks for your first name and your county. It doesn't ask for your birthday,
+            Social Security number, record, release date, or health information.
           </p>
         </CardContent>
       </Card>

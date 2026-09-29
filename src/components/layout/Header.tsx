@@ -71,11 +71,15 @@ export function Header() {
         onClick={() => openSheet("settings")}
         aria-label="Settings"
         aria-haspopup="dialog"
-        className="grid size-11 shrink-0 place-items-center rounded-xl text-ink hover:bg-paper-2"
+        className="flex h-11 min-w-11 shrink-0 flex-col items-center justify-center rounded-xl px-1 text-ink hover:bg-paper-2"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" className="-mb-0.5">
           <path d="M4 7h16M4 12h16M4 17h10" />
         </svg>
+        {/* visible label so the button reads as Settings at a glance */}
+        <span aria-hidden="true" className="text-[11px] font-bold leading-none">
+          Settings
+        </span>
       </button>
     </header>
   );

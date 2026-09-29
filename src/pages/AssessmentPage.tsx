@@ -78,7 +78,7 @@ export default function AssessmentPage() {
           <span>
             Question {index + 1} of {assessmentQuestions.length}
           </span>
-          <span>{isRetake ? "Readiness re-check" : "Readiness Check-in"}</span>
+          <span>{isRetake ? "Starting Point Check-In · Retake" : "Starting Point Check-In"}</span>
         </div>
         <Progress
           value={(answeredCount / assessmentQuestions.length) * 100}

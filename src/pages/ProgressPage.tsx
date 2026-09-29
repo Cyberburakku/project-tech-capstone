@@ -71,22 +71,22 @@ export default function ProgressPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <TrendingUp aria-hidden className="size-5 text-primary-dark" /> Readiness improvement
+              <TrendingUp aria-hidden className="size-5 text-primary-dark" /> How far you've come
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap items-center justify-around gap-4">
               <div className="text-center">
-                <RadialScore value={first.overall} size={110} stroke={10} color="var(--color-ink-3)" label="First check-in" />
+                <RadialScore value={first.overall} size={110} stroke={10} color="var(--color-ink-3)" label="First check-in" showBand />
                 <p className="mt-1 text-sm font-semibold text-ink-soft">First · {formatDate(first.takenAt)}</p>
               </div>
               <div className="text-center">
-                <RadialScore value={latest.overall} size={110} stroke={10} label="Latest check-in" />
+                <RadialScore value={latest.overall} size={110} stroke={10} label="Latest check-in" showBand />
                 <p className="mt-1 text-sm font-semibold text-ink-soft">Latest · {formatDate(latest.takenAt)}</p>
               </div>
             </div>
             <table className="mt-6 w-full text-left text-sm">
-              <caption className="sr-only">Readiness score by category, first versus latest check-in</caption>
+              <caption className="sr-only">Each area, first check-in versus latest check-in</caption>
               <thead>
                 <tr className="text-ink-soft">
                   <th scope="col" className="py-2 font-semibold">Area</th>

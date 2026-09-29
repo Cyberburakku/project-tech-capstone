@@ -71,7 +71,7 @@ export function CoachCard({ to = "/start" }: { to?: string }) {
             </ul>
           </div>
           <div className="rounded-2xl bg-clay-soft px-3 pb-3 pt-3.5">
-            <h3 className="mb-2 text-[13px] font-bold uppercase tracking-[0.06em] text-ink-2">We never ask</h3>
+            <h3 className="mb-2 text-[13px] font-bold uppercase tracking-[0.06em] text-ink-2">We don’t ask</h3>
             <ul className="text-base leading-snug text-ink">
               {["Your case", "Your record", "Release date"].map((t) => (
                 <li key={t} className="flex items-start gap-2 whitespace-nowrap py-[3px]">

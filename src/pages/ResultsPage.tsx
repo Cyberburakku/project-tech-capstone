@@ -5,7 +5,7 @@ import { ArrowRight, Clock, LifeBuoy, Sprout, Star, Target } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MultiRing } from "@/components/shared/RadialScore";
+import { BandLabel, MultiRing } from "@/components/shared/RadialScore";
 import { CoachMessage } from "@/components/shared/SecondTake";
 import { Celebration } from "@/components/shared/Celebration";
 import { PageHeader } from "@/components/shared/PageHeader";
@@ -32,8 +32,8 @@ export default function ResultsPage() {
       {fresh && <Celebration pieces={40} />}
       <PageHeader
         eyebrow="Your results"
-        title="Your Readiness Snapshot"
-        description="This is a starting point, not a grade. Every score can grow — and your path is built to help it grow."
+        title="Your Starting Point"
+        description="This shows where you're starting. It's not a grade. Every area can grow, and your path is built to help."
       />
 
       <CoachMessage className="mb-6">{resultsMessage(profile.firstName, result)}</CoachMessage>
@@ -41,10 +41,13 @@ export default function ResultsPage() {
       <Card>
         <CardContent className="grid items-center gap-8 p-6 sm:p-8 md:grid-cols-[auto_1fr]">
           <div className="flex flex-col items-center gap-4">
+            <p id="starting-h" className="text-sm font-bold uppercase tracking-wide text-ink-2">
+              Where You're Starting
+            </p>
             <div className="relative">
               <MultiRing
-                size={240}
-                label={`Overall readiness ${result.overall} out of 100.`}
+                size={256}
+                label={`Where you're starting: ${band.label}, ${result.overall} out of 100.`}
                 scores={CATEGORY_ORDER.map((k) => ({
                   key: k,
                   label: CATEGORY_META[k].label,
@@ -52,30 +55,27 @@ export default function ResultsPage() {
                   color: CATEGORY_META[k].hex,
                 }))}
               />
-              <div className="absolute inset-0 flex flex-col items-center justify-center" aria-hidden>
-                <span className="text-4xl font-extrabold text-ink">{result.overall}</span>
-                <span className="text-xs font-semibold text-ink-soft">Overall</span>
+              <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
+                <BandLabel value={result.overall} className="text-base" style={{ maxWidth: 92 }} />
               </div>
             </div>
-            <Badge variant="achievement">
-              Overall readiness: {result.overall}/100 · {band.label}
-            </Badge>
+            <p className="max-w-60 text-center text-sm text-ink-soft">{band.message}</p>
           </div>
 
-          <ul className="space-y-4" aria-label="Scores by category">
+          <ul className="space-y-4" aria-label="Where you're starting, by area">
             {CATEGORY_ORDER.map((k, i) => {
               const meta = CATEGORY_META[k];
               const value = result.scores[k];
               return (
                 <li key={k}>
-                  <div className="mb-1 flex items-center justify-between">
+                  <div className="mb-1 flex flex-wrap items-center justify-between gap-x-3">
                     <span className="flex items-center gap-2 font-semibold text-ink">
                       <span className="size-3 rounded-full" style={{ background: meta.hex }} aria-hidden />
-                      {meta.label}
+                      {meta.longLabel}
                     </span>
                     <span className="text-sm font-bold text-ink">
-                      {value}
-                      <span className="font-medium text-ink-soft"> · {scoreBand(value).label}</span>
+                      {scoreBand(value).label}
+                      <span className="text-xs font-medium text-ink-soft"> · {value}%</span>
                     </span>
                   </div>
                   <div
@@ -109,7 +109,7 @@ export default function ResultsPage() {
               <Star aria-hidden className="size-6" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">Top Strength</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">What's Already Working</p>
               <h2 className="text-xl font-bold text-ink">{strength.longLabel}</h2>
               <p className="text-sm text-ink-soft">{scoreBand(result.scores[result.topStrength]).message}</p>
             </div>
@@ -121,9 +121,9 @@ export default function ResultsPage() {
               <Sprout aria-hidden className="size-6" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-action-dark">Top Opportunity</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-action-dark">Where to Focus Next</p>
               <h2 className="text-xl font-bold text-ink">{opportunity.longLabel}</h2>
-              <p className="text-sm text-ink-soft">This is where a little work will make the biggest difference.</p>
+              <p className="text-sm text-ink-soft">This is your next step. A little time here will go a long way.</p>
             </div>
           </CardContent>
         </Card>

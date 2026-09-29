@@ -51,7 +51,7 @@ export const resources: Resource[] = [
     id: "maine-dhhs-ofi",
     name: "Maine DHHS – Office for Family Independence",
     shortDescription:
-      "The state office that handles food benefits (SNAP), MaineCare health coverage, and other help with basic needs.",
+      "The state office for food benefits (SNAP), MaineCare health coverage, and other help with basic needs.",
     whatTheyHelpWith: [
       "SNAP food benefits",
       "MaineCare (health coverage)",
@@ -111,10 +111,10 @@ export const resources: Resource[] = [
     id: "maine-prisoner-reentry-network",
     name: "Maine Prisoner Re-Entry Network",
     shortDescription:
-      "A statewide network founded in 2017 that brings together community groups, corrections staff, employers, and people with lived experience to support people coming home.",
+      "A group that works across Maine to support people coming home. Since 2017, it has brought together community groups, corrections staff, employers, and people who have been there.",
     whatTheyHelpWith: [
       "Community re-entry meetings in towns across Maine",
-      "Connections to recovery residences and workforce help",
+      "Help finding recovery housing and work",
       "Mentoring from trained volunteers",
       "Rose's Room support group for families",
     ],
@@ -129,7 +129,7 @@ export const resources: Resource[] = [
     id: "maine-reentry-network",
     name: "Maine Reentry Network",
     shortDescription:
-      "Peer-run reentry and recovery support. Everyone on the team has lived experience with recovery or incarceration.",
+      "Reentry and recovery support run by peers. Everyone on the team has been through recovery or incarceration themselves.",
     whatTheyHelpWith: [
       "Reentry and recovery coaching",
       "Connecting you with local resources",
@@ -188,12 +188,12 @@ export const resources: Resource[] = [
     id: "goodwill-workforce-services",
     name: "Goodwill Workforce Services",
     shortDescription:
-      "Job and career help from Goodwill Northern New England, including programs that partner with Maine correctional facilities.",
+      "Job and career help from Goodwill Northern New England. Some programs work with Maine prisons and jails.",
     whatTheyHelpWith: [
       "Career coaching and job placement",
       "Job training and work experience",
-      "Help with barriers like transportation or paperwork",
-      "Paid work opportunities during and after reentry",
+      "Help with things that get in the way, like rides or paperwork",
+      "Paid work while you settle back in, and after",
     ],
     tags: ["employment", "education", "technology"],
     counties: "statewide",

@@ -1,4 +1,5 @@
 import { motion, useReducedMotionConfig } from "framer-motion";
+import { scoreBand } from "@/lib/scoring";
 
 interface RadialScoreProps {
   value: number;
@@ -8,6 +9,8 @@ interface RadialScoreProps {
   track?: string;
   label?: string;
   sublabel?: string;
+  /** Lead with the band in words ("Building Momentum"); the number sits small below. */
+  showBand?: boolean;
 }
 
 /** Animated radial progress ring with accessible text alternative. */
@@ -19,6 +22,7 @@ export function RadialScore({
   track = "var(--color-ring-track)",
   label,
   sublabel,
+  showBand = false,
 }: RadialScoreProps) {
   const reduce = useReducedMotionConfig();
   const r = (size - stroke) / 2;
@@ -30,7 +34,11 @@ export function RadialScore({
       className="relative inline-flex items-center justify-center"
       style={{ width: size, height: size }}
       role="img"
-      aria-label={`${label ?? "Score"}: ${value} out of 100`}
+      aria-label={
+        showBand
+          ? `${label ?? "Where you're starting"}: ${scoreBand(value).label}, ${value} out of 100`
+          : `${label ?? "Score"}: ${value} out of 100`
+      }
     >
       <svg width={size} height={size} className="-rotate-90" aria-hidden>
         <circle cx={size / 2} cy={size / 2} r={r} stroke={track} strokeWidth={stroke} fill="none" />
@@ -49,12 +57,36 @@ export function RadialScore({
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center" aria-hidden>
-        <span className="font-extrabold text-ink" style={{ fontSize: size * 0.26, lineHeight: 1 }}>
-          {value}
-        </span>
-        {sublabel && <span className="mt-1 text-xs font-semibold text-ink-soft">{sublabel}</span>}
+        {showBand ? (
+          <BandLabel value={value} className="text-[13px]" style={{ maxWidth: size - stroke * 2 - 16 }} />
+        ) : (
+          <>
+            <span className="font-extrabold text-ink" style={{ fontSize: size * 0.26, lineHeight: 1 }}>
+              {value}
+            </span>
+            {sublabel && <span className="mt-1 text-xs font-semibold text-ink-soft">{sublabel}</span>}
+          </>
+        )}
       </div>
     </div>
+  );
+}
+
+/** The band in words, large, with the percentage small underneath. */
+export function BandLabel({
+  value,
+  className,
+  style,
+}: {
+  value: number;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <span className="flex flex-col items-center text-center" style={style}>
+      <span className={`font-serif font-semibold leading-[1.1] text-ink ${className ?? ""}`}>{scoreBand(value).label}</span>
+      <span className="mt-1 text-xs font-semibold text-ink-soft">{value}%</span>
+    </span>
   );
 }
 

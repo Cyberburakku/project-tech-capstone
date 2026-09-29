@@ -6,19 +6,19 @@ export const CATEGORY_META: Record<
 > = {
   technology: {
     label: "Technology",
-    longLabel: "Technology Readiness",
+    longLabel: "Technology Comfort",
     description: "Using phones, computers, and the internet with confidence.",
     hex: "var(--color-sage)",
   },
   support: {
     label: "Support",
-    longLabel: "Support Network Strength",
+    longLabel: "Support Network",
     description: "People you can count on and stay in touch with.",
     hex: "var(--color-clay)",
   },
   employment: {
     label: "Employment",
-    longLabel: "Employment Readiness",
+    longLabel: "Employment Confidence",
     description: "Confidence finding work and talking about your past.",
     hex: "var(--color-sun)",
   },
@@ -45,7 +45,7 @@ export const CATEGORY_ORDER: CategoryKey[] = [
 ];
 
 /**
- * The 10-question Readiness Assessment. Every option has a 0–100 score for its category.
+ * The 10-question Starting Point Check-In. Every option has a 0–100 score for its category.
  * "Which / what" questions also carry need tags that personalise missions and resources.
  */
 export const assessmentQuestions: AssessmentQuestion[] = [

@@ -37,7 +37,7 @@ export default function ResourcesPage() {
       <PageHeader
         eyebrow="Trusted resources"
         title="Your top 3 resources"
-        description="No endless lists. Just the three places most likely to help you right now — and exactly what to say when you reach out."
+        description="No long lists. Just the three places most likely to help you now, and what to say when you reach out."
       />
 
       <CoachMessage className="mb-6">

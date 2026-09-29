@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock, Flame, Lock, Quote, Target } from "lucide-react";
+import { ArrowRight, Clock, Flame, Lock, Quote, Settings, Target } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -147,10 +147,17 @@ function Dashboard() {
         <button
           type="button"
           onClick={() => openSheet("settings")}
-          aria-label="Change your avatar"
-          className="shrink-0 rounded-full"
+          aria-label="Settings: change your avatar"
+          className="relative shrink-0 rounded-full"
         >
           <AvatarArt id={avatarId} className="size-14 web:size-16" />
+          {/* gear badge: signals this opens Settings */}
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-0.5 -right-0.5 grid size-6 place-items-center rounded-full border-2 border-paper bg-ink text-paper"
+          >
+            <Settings className="size-3.5" strokeWidth={2.5} />
+          </span>
         </button>
         <div className="min-w-0">
         <h1 className="text-[34px] leading-[1.08] text-ink web:text-5xl">
@@ -179,7 +186,7 @@ function Dashboard() {
           <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <Badge className="mb-2">Step 1</Badge>
-              <h2 className="text-xl font-bold text-ink">Take your Readiness Check-in</h2>
+              <h2 className="text-xl font-bold text-ink">Take your Starting Point Check-In</h2>
               <p className="text-ink-soft">10 quick questions · about 3 minutes</p>
             </div>
             <Button asChild size="lg">
@@ -227,7 +234,7 @@ function Dashboard() {
 
           <Card>
             <CardContent className="flex items-center gap-5 p-6">
-              <RadialScore value={latest.overall} size={120} stroke={12} label="Overall readiness" sublabel="Readiness" />
+              <RadialScore value={latest.overall} size={120} stroke={12} label="Where you're starting" showBand />
               <div className="flex-1 space-y-3">
                 <div>
                   <p className="text-sm font-semibold text-ink">Lessons</p>
@@ -240,7 +247,7 @@ function Dashboard() {
                   <Flame aria-hidden className="size-5 text-action-dark" /> {streak} day streak
                 </p>
                 <Link to="/results" className="text-sm font-semibold text-primary-dark underline-offset-4 hover:underline">
-                  View snapshot
+                  View my starting point
                 </Link>
               </div>
             </CardContent>

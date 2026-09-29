@@ -106,9 +106,13 @@ export function orderModules(scores: ScoreSet): ModuleId[] {
   return [first, ...rest];
 }
 
+/**
+ * Where a 0–100 value lands, in words. The band leads on screen; the number
+ * is only shown small, as a detail.
+ */
 export function scoreBand(score: number): { label: string; message: string } {
-  if (score >= 80) return { label: "Strong", message: "You have a solid foundation here." };
-  if (score >= 60) return { label: "Growing", message: "You're on your way. Keep building." };
-  if (score >= 40) return { label: "Building", message: "A few steps here will go a long way." };
-  return { label: "Starting", message: "Everyone starts somewhere. This is your starting line." };
+  if (score >= 76) return { label: "Well Prepared", message: "You have a solid base here." };
+  if (score >= 51) return { label: "Making Real Progress", message: "You're on your way. Keep building." };
+  if (score >= 26) return { label: "Building Momentum", message: "A few steps here will go a long way." };
+  return { label: "Just Getting Started", message: "Everyone starts somewhere. This is your starting line." };
 }

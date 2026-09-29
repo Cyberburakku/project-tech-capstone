@@ -7,6 +7,7 @@ import {
   orderModules,
   overallScore,
   scoreAssessment,
+  scoreBand,
   topOpportunity,
   topStrength,
 } from "@/lib/scoring";
@@ -71,5 +72,25 @@ describe("scoring engine", () => {
     const r = scoreAssessment(allFirst);
     expect(r.id).toBeTruthy();
     expect(r.overall).toBe(overallScore(r.scores));
+  });
+});
+
+describe("scoreBand", () => {
+  it("maps 0–100 onto the four starting-point bands", () => {
+    expect(scoreBand(0).label).toBe("Just Getting Started");
+    expect(scoreBand(25).label).toBe("Just Getting Started");
+    expect(scoreBand(26).label).toBe("Building Momentum");
+    expect(scoreBand(50).label).toBe("Building Momentum");
+    expect(scoreBand(51).label).toBe("Making Real Progress");
+    expect(scoreBand(75).label).toBe("Making Real Progress");
+    expect(scoreBand(76).label).toBe("Well Prepared");
+    expect(scoreBand(100).label).toBe("Well Prepared");
+  });
+
+  it("never uses grading words", () => {
+    for (const v of [0, 30, 60, 90]) {
+      const { label, message } = scoreBand(v);
+      expect(`${label} ${message}`).not.toMatch(/weak|low|score|fail/i);
+    }
   });
 });
