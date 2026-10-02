@@ -80,6 +80,7 @@ export function HowItWorks() {
       <h2 id="how-h" className="text-[30px] leading-[1.1] text-ink web:text-[38px]">
         Four steps, at your own pace
       </h2>
+      <p className="mt-2 max-w-[34ch] text-lg text-ink-2">Not just information. A personalized path forward.</p>
       <ol ref={listRef} className="mt-6 web:grid web:grid-cols-2 web:gap-x-12 web:gap-y-10">
         {STEPS.map((s, i) => (
           <li

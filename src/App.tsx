@@ -15,6 +15,8 @@ const CertificatePage = lazy(() => import("@/pages/CertificatePage"));
 const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
 const AdminPage = lazy(() => import("@/pages/AdminPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+const AboutPage = lazy(() => import("@/pages/AboutPage"));
+const DemoPage = lazy(() => import("@/pages/DemoPage"));
 
 function Loading() {
   return (
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/start", element: s(<StartPage />) },
       { path: "/privacy", element: s(<PrivacyPage />) },
+      { path: "/about", element: s(<AboutPage />) },
+      { path: "/demo", element: s(<DemoPage />) },
       { path: "/assessment", element: s(<RequireProfile><AssessmentPage /></RequireProfile>) },
       { path: "/results", element: s(<RequireAssessment><ResultsPage /></RequireAssessment>) },
       { path: "/path", element: s(<RequireAssessment><PathPage /></RequireAssessment>) },

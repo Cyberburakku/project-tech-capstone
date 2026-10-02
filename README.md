@@ -55,6 +55,8 @@ Crisis Text Line (741741), 211 Maine and 911. The home page also has a **Rough d
 - **Resource matching engine** (`src/data/resources.ts`): 10 Maine organizations, ranked by the learner's first need, weakest areas, and county. Always returns exactly 3.
 - **Second Take coach**: built-in coaching messages that run on the device (`src/lib/coach.ts`), plus an optional **Ask Second Take** AI chat powered by Claude through a Supabase Edge Function.
 - **Progress + sync**: saved to `localStorage` and, when configured, to Supabase through an offline-safe retry queue.
+- **Demo mode** at `/demo`: loads Jordan, a sample learner part-way through the journey, for presentations. Exit from the banner.
+- **How we built it** at `/about`: the tech stack and the future roadmap.
 - **Hidden admin dashboard** at `/admin-demo`: total assessments, module completion, and average readiness. Aggregates only, no personal data.
 - **Dark mode** (`src/lib/theme.ts`, `.dark` tokens in `src/index.css`): every text/background pair meets WCAG AA in both themes. Certificates stay light so they print well.
 - **Accessibility**: WCAG AA color contrast, skip link, sage focus rings, 44px+ tap targets, screen reader labels, keyboard-operable radio groups and dialogs (focus trap, Escape), and reduced motion (OS setting or the in-app "Pause animations" switch, which also freezes the hero shader). No content waits on an animation to appear.
@@ -129,6 +131,8 @@ project-tech-capstone/
 | `/progress` | Progress, reflections journal, data controls |
 | `/certificate/:moduleId` | Certificate + PDF download |
 | `/privacy` | What we store and why |
+| `/demo` | Demo mode with a sample learner |
+| `/about` | How we built it + roadmap |
 | `/admin-demo` | Hidden demo dashboard (not linked, `noindex`) |
 
 ## Content notes

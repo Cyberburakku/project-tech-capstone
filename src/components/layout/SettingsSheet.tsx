@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Info, PlayCircle } from "lucide-react";
 import { Sheet, SheetClose } from "@/components/layout/Sheet";
 import { useShell } from "@/components/layout/ShellContext";
 import { cn } from "@/lib/utils";
@@ -100,6 +102,14 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
           <Switch id="set-still" label="Pause animations" checked={still} onChange={setStill} />
         </div>
         <AvatarPicker value={avatarId} onChange={setAvatarId} />
+        <div className="flex flex-wrap gap-x-5 border-t border-line pt-3">
+          <Link to="/about" onClick={onClose} className="inline-flex min-h-11 items-center gap-2 font-bold text-ink underline underline-offset-4">
+            <Info aria-hidden className="size-4 text-primary-dark" /> How we built it
+          </Link>
+          <Link to="/demo" onClick={onClose} className="inline-flex min-h-11 items-center gap-2 font-bold text-ink underline underline-offset-4">
+            <PlayCircle aria-hidden className="size-4 text-primary-dark" /> Demo mode
+          </Link>
+        </div>
       </div>
       <SheetClose onClose={onClose}>Done</SheetClose>
     </Sheet>

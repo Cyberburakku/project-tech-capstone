@@ -235,7 +235,7 @@ const CATEGORY_TAGS: Record<CategoryKey, NeedTag[]> = {
 
 const CATEGORY_LABELS: Record<CategoryKey, string> = {
   technology: "technology skills",
-  employment: "job readiness",
+  employment: "employment confidence",
   support: "support network",
   hope: "hope and recovery",
   resources: "access to basic resources",
@@ -311,18 +311,20 @@ export function matchResources(
     // Human-readable reason
     let reason: string;
     if (firstNeed && matchedNeeds.includes(firstNeed)) {
-      reason = `Because you said ${NEED_LABELS[firstNeed]} is your first need`;
+      reason = `Recommended because you said ${NEED_LABELS[firstNeed]} is your first need`;
     } else if (matchedNeeds.length > 0) {
-      reason = `Because you mentioned needing help with ${joinList(matchedNeeds.map((t) => NEED_LABELS[t]))}`;
+      reason = `Recommended because you mentioned needing help with ${joinList(matchedNeeds.map((t) => NEED_LABELS[t]))}`;
     } else if (weakest && weakest.boost >= 3) {
-      reason = `Because they can help build your ${CATEGORY_LABELS[weakest.category]}`;
+      reason = `Recommended because ${CATEGORY_LABELS[weakest.category]} was identified as an area to focus on next`;
     } else if (resource.counties === "statewide") {
-      reason = "A trusted place to start, available anywhere in Maine";
+      reason = "Recommended as a trusted place to start, available anywhere in Maine";
     } else {
-      reason = "A trusted place to start near you";
+      reason = "Recommended as a trusted place to start near you";
     }
     if (localMatch) {
-      reason += `, and they serve ${county} County`;
+      reason += `, and they serve ${county} County.`;
+    } else {
+      reason += ".";
     }
 
     return { resource, score: Math.round(score * 100) / 100, reason };

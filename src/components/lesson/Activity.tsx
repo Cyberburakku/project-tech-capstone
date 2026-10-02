@@ -232,7 +232,7 @@ function Builder({
   };
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-6 web:grid-cols-2">
       <div className="space-y-4">
         {activity.fields.map((f) => (
           <div key={f.id} className="space-y-2">

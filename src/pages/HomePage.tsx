@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock, Flame, Lock, Quote, Settings, Target } from "lucide-react";
+import { ArrowRight, Award, BookOpen, Clock, Flame, Lock, Play, Quote, Settings, Sprout, Star, Target } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { CoachMessage } from "@/components/shared/SecondTake";
 import { RadialScore } from "@/components/shared/RadialScore";
 import { AskSecondTake } from "@/components/shared/AskSecondTake";
+import { JourneyTracker } from "@/components/shared/JourneyTracker";
+import { ModuleIcon } from "@/components/shared/ModuleIcon";
 import { HeroScene } from "@/components/home/HeroScene";
 import { ThoughtCard } from "@/components/home/ThoughtCard";
 import { HowItWorks } from "@/components/home/HowItWorks";
@@ -20,6 +22,7 @@ import { useAppStore, selectLatestAssessment } from "@/store/useAppStore";
 import { getStoryOfTheDay } from "@/data/mentors";
 import { buildPath, currentLesson, learningStreak, overallProgress } from "@/lib/progress";
 import { greeting, homeMessage } from "@/lib/coach";
+import { useJourney } from "@/lib/useJourney";
 import { cn } from "@/lib/utils";
 import { AvatarArt } from "@/components/shared/avatars";
 import { useShell } from "@/components/layout/ShellContext";
@@ -135,14 +138,18 @@ function Dashboard() {
   const profile = useAppStore((s) => s.profile)!;
   const latest = useAppStore(selectLatestAssessment);
   const completed = useAppStore((s) => s.completedLessons);
+  const certificates = useAppStore((s) => s.certificates);
   const path = useMemo(() => buildPath(latest, completed), [latest, completed]);
   const mission = currentLesson(path);
   const progress = overallProgress(completed);
   const streak = learningStreak(completed);
   const story = getStoryOfTheDay();
+  const journey = useJourney();
+  const certCount = Object.keys(certificates).length;
 
   return (
     <div className="container-app space-y-6 pt-6 web:pt-10">
+      {/* 1. Welcome */}
       <div className="flex items-center gap-4">
         <button
           type="button"
@@ -160,10 +167,10 @@ function Dashboard() {
           </span>
         </button>
         <div className="min-w-0">
-        <h1 className="text-[34px] leading-[1.08] text-ink web:text-5xl">
-          {greeting(profile.firstName)}
-        </h1>
-        <p className="mt-1 text-ink-soft">{profile.county === "Outside Maine" || profile.county === "Not sure yet" ? "Maine" : `${profile.county} County, Maine`}</p>
+          <h1 className="text-[34px] leading-[1.08] text-ink web:text-5xl">{greeting(profile.firstName)}</h1>
+          <p className="mt-1 text-ink-soft">
+            {profile.county === "Outside Maine" || profile.county === "Not sure yet" ? "Maine" : `${profile.county} County, Maine`}
+          </p>
         </div>
       </div>
 
@@ -177,17 +184,15 @@ function Dashboard() {
         })}
       </CoachMessage>
 
-      <section aria-labelledby="thought-h">
-        <ThoughtCard />
-      </section>
-
       {!latest ? (
-        <Card className="border-primary/40">
+        <Card className="border-2 border-action">
           <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <Badge className="mb-2">Step 1</Badge>
-              <h2 className="text-xl font-bold text-ink">Take your Starting Point Check-In</h2>
-              <p className="text-ink-soft">10 quick questions · about 3 minutes</p>
+              <Badge variant="action" className="mb-2">Step 1</Badge>
+              <h2 className="text-2xl font-bold text-ink">Take your Starting Point Check-In</h2>
+              <p className="mt-1 flex items-center gap-1.5 text-ink-soft">
+                <Clock aria-hidden className="size-4" /> 10 quick questions · 3 min
+              </p>
             </div>
             <Button asChild size="lg">
               <Link to="/assessment">
@@ -197,30 +202,57 @@ function Dashboard() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-6 md:grid-cols-[1.4fr_1fr]">
+        <>
+          {/* 2. Readiness level */}
+          <Link
+            to="/results"
+            className="flex items-center gap-4 rounded-3xl border border-line bg-card p-4 shadow-soft hover:border-primary"
+          >
+            <RadialScore value={latest.overall} size={92} stroke={9} label="Where you're starting" showBand />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">Your Starting Point</p>
+              <p className="mt-1 flex flex-col gap-1 text-sm text-ink">
+                <span className="inline-flex items-start gap-1">
+                  <Star aria-hidden className="mt-0.5 size-4 shrink-0 text-primary-dark" />
+                  <span><span className="font-bold">Working:</span> {CATEGORY_META[latest.topStrength].longLabel}</span>
+                </span>
+                <span className="inline-flex items-start gap-1">
+                  <Sprout aria-hidden className="mt-0.5 size-4 shrink-0 text-action-dark" />
+                  <span><span className="font-bold">Focus:</span> {CATEGORY_META[latest.topOpportunity].longLabel}</span>
+                </span>
+              </p>
+            </div>
+            <ArrowRight aria-hidden className="size-5 shrink-0 text-ink-3" />
+            <span className="sr-only">View my starting point</span>
+          </Link>
+
+          {/* 3. Today's Mission — the main focus */}
           {mission ? (
-            <Card className="relative overflow-hidden border-action/40">
-              <div className="absolute -right-10 -top-10 size-40 rounded-full bg-action-soft" aria-hidden />
-              <CardContent className="relative p-6">
-                <Badge variant="action" className="mb-3">
-                  <Target aria-hidden /> Today's Mission
-                </Badge>
-                <h2 className="text-2xl font-extrabold text-ink">{mission.lesson.missionTitle}</h2>
-                <p className="mt-1 text-ink-soft">
-                  {mission.module.title} · Lesson {mission.lesson.order}: {mission.lesson.title}
+            <Card className="relative overflow-hidden border-2 border-action shadow-lift">
+              <div className="absolute -right-12 -top-12 size-44 rounded-full bg-action-soft" aria-hidden />
+              <CardContent className="relative p-6 sm:p-8">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="action">
+                    <Target aria-hidden /> Today's Mission
+                  </Badge>
+                  <Badge variant="muted">
+                    <Clock aria-hidden /> {mission.lesson.minutes} min
+                  </Badge>
+                </div>
+                <h2 className="mt-3 text-[28px] leading-tight text-ink sm:text-4xl">{mission.lesson.missionTitle}</h2>
+                <p className="mt-2 flex items-center gap-1.5 text-ink-soft">
+                  <ModuleIcon icon={mission.module.icon} className="size-4 shrink-0" />
+                  {mission.module.title} · Lesson {mission.lesson.order}
                 </p>
-                <p className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-ink">
-                  <Clock aria-hidden className="size-4" /> Estimated time: {mission.lesson.minutes} minutes
-                </p>
-                <Button asChild size="lg" className="mt-5 w-full sm:w-auto">
+                <Button asChild size="lg" className="mt-6 w-full sm:w-auto">
                   <Link to={`/lesson/${mission.lesson.id}`}>
-                    Start mission <ArrowRight aria-hidden />
+                    <Play aria-hidden className="fill-current" /> Start mission
                   </Link>
                 </Button>
               </CardContent>
             </Card>
           ) : (
-            <Card className="border-achievement">
+            <Card className="border-2 border-achievement">
               <CardContent className="p-6">
                 <Badge variant="achievement" className="mb-3">All missions complete</Badge>
                 <h2 className="text-2xl font-extrabold text-ink">You finished every lesson!</h2>
@@ -232,36 +264,58 @@ function Dashboard() {
             </Card>
           )}
 
-          <Card>
-            <CardContent className="flex items-center gap-5 p-6">
-              <RadialScore value={latest.overall} size={120} stroke={12} label="Where you're starting" showBand />
-              <div className="flex-1 space-y-3">
-                <div>
-                  <p className="text-sm font-semibold text-ink">Lessons</p>
-                  <Progress value={progress.percent} aria-label={`${progress.done} of ${progress.total} lessons complete`} className="mt-1" />
-                  <p className="mt-1 text-xs text-ink-soft">
-                    {progress.done} of {progress.total} complete
-                  </p>
-                </div>
-                <p className="flex items-center gap-1.5 text-sm font-semibold text-ink">
-                  <Flame aria-hidden className="size-5 text-action-dark" /> {streak} day streak
-                </p>
-                <Link to="/results" className="text-sm font-semibold text-primary-dark underline-offset-4 hover:underline">
-                  View my starting point
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+          {/* 4. Continue journey */}
+          <section aria-labelledby="journey-h" className="rounded-3xl border border-line bg-card p-5 shadow-soft sm:p-6">
+            <div className="flex items-baseline justify-between gap-3">
+              <h2 id="journey-h" className="text-xl text-ink">Your journey</h2>
+              <p className="text-sm font-bold text-ink-2">
+                {journey.doneCount} of {journey.steps.length} steps
+              </p>
+            </div>
+            <JourneyTracker {...journey} className="mt-4" />
+            <Button asChild variant="secondary" className="mt-5 w-full sm:w-auto">
+              <Link to={mission ? `/lesson/${mission.lesson.id}` : journey.current?.to ?? "/path"}>
+                Continue my journey <ArrowRight aria-hidden />
+              </Link>
+            </Button>
+          </section>
+
+          {/* 5. Progress summary */}
+          <section aria-label="Progress summary" className="grid grid-cols-3 gap-3">
+            <Link to="/path" className="rounded-3xl border border-line bg-card p-4 hover:border-primary">
+              <BookOpen aria-hidden className="size-6 text-primary-dark" />
+              <p className="mt-2 text-2xl font-extrabold text-ink">
+                {progress.done}
+                <span className="text-base font-bold text-ink-2">/{progress.total}</span>
+              </p>
+              <p className="text-sm text-ink-soft">Lessons</p>
+              <Progress value={progress.percent} aria-label={`${progress.done} of ${progress.total} lessons complete`} className="mt-2 h-2" />
+            </Link>
+            <Link to="/progress" className="rounded-3xl border border-line bg-card p-4 hover:border-primary">
+              <Award aria-hidden className="size-6 text-action-dark" />
+              <p className="mt-2 text-2xl font-extrabold text-ink">
+                {certCount}
+                <span className="text-base font-bold text-ink-2">/3</span>
+              </p>
+              <p className="text-sm text-ink-soft">Certificates</p>
+            </Link>
+            <Link to="/progress" className="rounded-3xl border border-line bg-card p-4 hover:border-primary">
+              <Flame aria-hidden className="size-6 text-action-dark" />
+              <p className="mt-2 text-2xl font-extrabold text-ink">{streak}</p>
+              <p className="text-sm text-ink-soft">Day streak</p>
+            </Link>
+          </section>
+        </>
       )}
 
+      {/* Secondary content */}
       {latest && (
-        <section aria-labelledby="path-preview">
+        <section aria-labelledby="path-preview" className="pt-4">
           <div className="mb-3 flex items-center justify-between">
             <h2 id="path-preview" className="text-xl font-bold text-ink">Up next on your path</h2>
             <Link to="/path" className="text-sm font-semibold text-primary-dark hover:underline">See full path</Link>
           </div>
-          <ol className="grid gap-3 sm:grid-cols-3">
+          <ol className="grid gap-3 web:grid-cols-3">
             {path
               .filter((p) => p.status !== "completed")
               .slice(0, 3)
@@ -283,6 +337,10 @@ function Dashboard() {
           </ol>
         </section>
       )}
+
+      <section aria-labelledby="thought-h">
+        <ThoughtCard />
+      </section>
 
       {isAiCoachEnabled && (
         <AskSecondTake

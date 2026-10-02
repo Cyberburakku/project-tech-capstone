@@ -29,7 +29,7 @@ export default function PrivacyPage() {
         title="How we protect you"
         description="Second Take collects as little as it can. Here's what it saves right now, at this stage of the app."
       />
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 web:grid-cols-2">
         <Card>
           <CardContent className="p-6">
             <h2 className="text-lg font-bold text-ink">What we save</h2>

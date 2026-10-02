@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
+import { DemoBanner } from "@/components/layout/DemoBanner";
 import { Header } from "@/components/layout/Header";
 import { TabBar } from "@/components/layout/TabBar";
 import { HelpSheet } from "@/components/layout/HelpSheet";
@@ -80,6 +81,7 @@ export function AppShell() {
             Skip to main content
           </a>
           <Header />
+          <DemoBanner />
           <main
             id="main"
             ref={mainRef}

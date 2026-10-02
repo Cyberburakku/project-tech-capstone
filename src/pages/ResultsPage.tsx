@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, LifeBuoy, Sprout, Star, Target } from "lucide-react";
+import { ArrowRight, Check, Clock, LifeBuoy, Sprout, Star, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,15 +23,17 @@ export default function ResultsPage() {
   const completed = useAppStore((s) => s.completedLessons);
   const mission = useMemo(() => currentLesson(buildPath(result, completed)), [result, completed]);
 
-  const strength = CATEGORY_META[result.topStrength];
-  const opportunity = CATEGORY_META[result.topOpportunity];
+  // Two strongest and two areas to grow; the top picks always lead.
+  const ranked = [...CATEGORY_ORDER].sort((a, b) => result.scores[b] - result.scores[a]);
+  const strengths = [result.topStrength, ...ranked.filter((k) => k !== result.topStrength && k !== result.topOpportunity)].slice(0, 2);
+  const opportunities = [result.topOpportunity, ...[...ranked].reverse().filter((k) => k !== result.topOpportunity && !strengths.includes(k))].slice(0, 2);
   const band = scoreBand(result.overall);
 
   return (
     <div className="container-app">
       {fresh && <Celebration pieces={40} />}
       <PageHeader
-        eyebrow="Your results"
+        eyebrow="Not a grade · A starting line"
         title="Your Starting Point"
         description="This shows where you're starting. It's not a grade. Every area can grow, and your path is built to help."
       />
@@ -39,7 +41,7 @@ export default function ResultsPage() {
       <CoachMessage className="mb-6">{resultsMessage(profile.firstName, result)}</CoachMessage>
 
       <Card>
-        <CardContent className="grid items-center gap-8 p-6 sm:p-8 md:grid-cols-[auto_1fr]">
+        <CardContent className="grid items-center gap-8 p-6 sm:p-8 web:grid-cols-[auto_1fr]">
           <div className="flex flex-col items-center gap-4">
             <p id="starting-h" className="text-sm font-bold uppercase tracking-wide text-ink-2">
               Where You're Starting
@@ -102,31 +104,52 @@ export default function ResultsPage() {
         </CardContent>
       </Card>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <Card className="border-primary/40">
-          <CardContent className="flex items-start gap-4 p-6">
+      <div className="mt-6 grid gap-4 web:grid-cols-2">
+        <section aria-labelledby="working-h" className="rounded-3xl border-2 border-primary/40 bg-card p-6">
+          <div className="flex items-center gap-3">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-soft text-primary-dark">
               <Star aria-hidden className="size-6" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">What's Already Working</p>
-              <h2 className="text-xl font-bold text-ink">{strength.longLabel}</h2>
-              <p className="text-sm text-ink-soft">{scoreBand(result.scores[result.topStrength]).message}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">Strengths</p>
+              <h2 id="working-h" className="text-xl text-ink">What's Already Working</h2>
             </div>
-          </CardContent>
-        </Card>
-        <Card className="border-action/40">
-          <CardContent className="flex items-start gap-4 p-6">
+          </div>
+          <ul className="mt-4 space-y-2">
+            {strengths.map((k) => (
+              <li key={k} className="flex items-center justify-between gap-3 rounded-2xl bg-primary-soft px-4 py-3">
+                <span className="flex items-center gap-2 font-bold text-ink">
+                  <Check aria-hidden className="size-5 shrink-0 text-primary-dark" strokeWidth={3} />
+                  {CATEGORY_META[k].longLabel}
+                </span>
+                <span className="shrink-0 text-xs font-semibold text-ink-2">{scoreBand(result.scores[k]).label}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section aria-labelledby="focus-h" className="rounded-3xl border-2 border-action/40 bg-card p-6">
+          <div className="flex items-center gap-3">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-action-soft text-action-dark">
               <Sprout aria-hidden className="size-6" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-action-dark">Where to Focus Next</p>
-              <h2 className="text-xl font-bold text-ink">{opportunity.longLabel}</h2>
-              <p className="text-sm text-ink-soft">This is your next step. A little time here will go a long way.</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-action-dark">Opportunities</p>
+              <h2 id="focus-h" className="text-xl text-ink">Where to Focus Next</h2>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+          <ul className="mt-4 space-y-2">
+            {opportunities.map((k) => (
+              <li key={k} className="flex items-center justify-between gap-3 rounded-2xl bg-action-soft px-4 py-3">
+                <span className="flex items-center gap-2 font-bold text-ink">
+                  <ArrowRight aria-hidden className="size-5 shrink-0 text-action-dark" />
+                  {CATEGORY_META[k].longLabel}
+                </span>
+                <span className="shrink-0 text-xs font-semibold text-ink-2">{scoreBand(result.scores[k]).label}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm text-ink-soft">Your next steps. Your path starts here.</p>
+        </section>
       </div>
 
       {mission && (

@@ -15,6 +15,9 @@ import { modules, getLesson } from "@/data/modules";
 import { CATEGORY_META, CATEGORY_ORDER } from "@/data/assessment";
 import { learningStreak, moduleProgress, overallProgress } from "@/lib/progress";
 import { improvementMessage } from "@/lib/coach";
+import { exitDemo } from "@/lib/demo";
+import { useJourney } from "@/lib/useJourney";
+import { JourneyTracker } from "@/components/shared/JourneyTracker";
 import { cn, formatDate } from "@/lib/utils";
 
 export default function ProgressPage() {
@@ -23,7 +26,7 @@ export default function ProgressPage() {
   const completed = useAppStore((s) => s.completedLessons);
   const reflections = useAppStore((s) => s.reflections);
   const certificates = useAppStore((s) => s.certificates);
-  const resetAll = useAppStore((s) => s.resetAll);
+  const journey = useJourney();
   const [confirmReset, setConfirmReset] = useState(false);
 
   const first = assessments[0];
@@ -53,7 +56,17 @@ export default function ProgressPage() {
 
       {assessments.length > 1 && <CoachMessage className="mb-6">{improvementMessage(first, latest)}</CoachMessage>}
 
-      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <section aria-labelledby="journey-p" className="mb-6 rounded-3xl border border-line bg-card p-5 shadow-soft sm:p-6">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 id="journey-p" className="text-xl text-ink">Your journey</h2>
+          <p className="text-sm font-bold text-ink-2">
+            {journey.doneCount} of {journey.steps.length} steps
+          </p>
+        </div>
+        <JourneyTracker {...journey} className="mt-4" />
+      </section>
+
+      <ul className="grid grid-cols-2 gap-3 web:grid-cols-5">
         {stats.map(({ icon: Icon, label, value }) => (
           <li key={label}>
             <Card className="h-full">
@@ -67,7 +80,7 @@ export default function ProgressPage() {
         ))}
       </ul>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2 [&>*]:min-w-0">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -215,7 +228,7 @@ export default function ProgressPage() {
                   size="sm"
                   className="bg-crisis-strong shadow-none hover:bg-clay-press"
                   onClick={() => {
-                    resetAll();
+                    exitDemo();
                     navigate("/");
                   }}
                 >

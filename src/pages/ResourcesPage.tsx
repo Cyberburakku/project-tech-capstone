@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Phone, Quote } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { ResourceCard } from "@/components/shared/ResourceCard";
@@ -6,6 +6,7 @@ import { CoachMessage } from "@/components/shared/SecondTake";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppStore, selectLatestAssessment } from "@/store/useAppStore";
 import { matchResources } from "@/data/resources";
+import { markSeenResources } from "@/lib/journey";
 import { cn } from "@/lib/utils";
 import type { NeedTag } from "@/types";
 
@@ -25,6 +26,7 @@ export default function ResourcesPage() {
   const profile = useAppStore((s) => s.profile)!;
   const latest = useAppStore(selectLatestAssessment)!;
   const [focus, setFocus] = useState<NeedTag | "auto">("auto");
+  useEffect(() => markSeenResources(), []);
 
   const matches = useMemo(() => {
     const needTags =
@@ -37,7 +39,7 @@ export default function ResourcesPage() {
       <PageHeader
         eyebrow="Trusted resources"
         title="Your top 3 resources"
-        description="No long lists. Just the three places most likely to help you now, and what to say when you reach out."
+        description="Not a long list. Just your top 3, matched to you, with the first step for each."
       />
 
       <CoachMessage className="mb-6">

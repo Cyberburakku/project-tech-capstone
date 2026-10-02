@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { motion, useReducedMotionConfig } from "framer-motion";
-import { ArrowLeft, Award, Download, Loader2 } from "lucide-react";
+import { ArrowLeft, Award, Briefcase, Check, Copy, Download, FileText, Handshake, Loader2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Celebration } from "@/components/shared/Celebration";
 import { CoachMessage } from "@/components/shared/SecondTake";
@@ -23,6 +23,7 @@ export default function CertificatePage() {
   const reduce = useReducedMotionConfig();
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const isComplete = module ? moduleProgress(module.id, completed).isComplete : false;
 
@@ -50,6 +51,17 @@ export default function CertificatePage() {
 
   const issuedAt = certificate?.issuedAt ?? new Date().toISOString();
   const code = certificate?.code ?? "";
+
+  const shareText = `I just earned my ${module.title} certificate from Second Take. Skills I practiced: ${moduleSkills(module).slice(0, 3).join(", ")}.`;
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setError(`Copy didn't work here. You can share this: "${shareText}"`);
+    }
+  };
 
   const onDownload = async () => {
     setDownloading(true);
@@ -102,7 +114,7 @@ export default function CertificatePage() {
           <p className="mt-1 text-2xl font-bold text-ink">{module.title}</p>
 
           <h2 className="mt-6 text-xs font-bold tracking-widest text-primary-dark">SKILLS DEMONSTRATED</h2>
-          <ul className="mx-auto mt-3 grid max-w-2xl gap-x-6 gap-y-1.5 text-left text-sm text-ink sm:grid-cols-2">
+          <ul className="mx-auto mt-3 grid max-w-2xl gap-x-6 gap-y-1.5 text-left text-sm text-ink web:grid-cols-2">
             {moduleSkills(module).map((s) => (
               <li key={s} className="flex gap-2">
                 <span className="mt-1.5 size-2 shrink-0 rounded-full bg-action" aria-hidden />
@@ -129,17 +141,55 @@ export default function CertificatePage() {
         </div>
       </motion.section>
 
-      <div className="mt-6 flex flex-col items-center gap-3">
-        <Button size="lg" onClick={onDownload} disabled={downloading}>
-          {downloading ? <Loader2 aria-hidden className="animate-spin" /> : <Download aria-hidden />}
-          {downloading ? "Preparing PDF…" : "Download PDF certificate"}
-        </Button>
+      <section aria-labelledby="share-h" className="mt-8 rounded-3xl border-2 border-primary/40 bg-card p-6 sm:p-8">
+        <p className="text-xs font-bold uppercase tracking-wide text-primary-dark">Ready to Share</p>
+        <h2 id="share-h" className="mt-1 text-2xl text-ink">Show what you can do</h2>
+        <dl className="mt-4 grid gap-3 text-sm web:grid-cols-3">
+          <div className="rounded-2xl bg-paper-2 p-3">
+            <dt className="font-semibold text-ink-2">Name</dt>
+            <dd className="text-base font-bold text-ink">{profile.firstName}</dd>
+          </div>
+          <div className="rounded-2xl bg-paper-2 p-3">
+            <dt className="font-semibold text-ink-2">Module completed</dt>
+            <dd className="text-base font-bold text-ink">{module.title}</dd>
+          </div>
+          <div className="rounded-2xl bg-paper-2 p-3">
+            <dt className="font-semibold text-ink-2">Date</dt>
+            <dd className="text-base font-bold text-ink">{formatDate(issuedAt)}</dd>
+          </div>
+        </dl>
+        <p className="mt-4 text-sm font-semibold text-ink">Good places to use it:</p>
+        <ul className="mt-2 flex flex-wrap gap-2 text-sm">
+          {[
+            { icon: Briefcase, text: "Job applications" },
+            { icon: FileText, text: "Your resume" },
+            { icon: Users, text: "Your case manager" },
+            { icon: Handshake, text: "Interviews" },
+          ].map(({ icon: Icon, text }) => (
+            <li key={text} className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1.5 font-semibold text-ink">
+              <Icon aria-hidden className="size-4 text-primary-dark" /> {text}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button size="lg" onClick={onDownload} disabled={downloading}>
+            {downloading ? <Loader2 aria-hidden className="animate-spin" /> : <Download aria-hidden />}
+            {downloading ? "Preparing PDF…" : "Download PDF certificate"}
+          </Button>
+          <Button size="lg" variant="secondary" onClick={onCopy}>
+            {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+            {copied ? "Copied" : "Copy a share message"}
+          </Button>
+        </div>
+        <p aria-live="polite" className="sr-only">
+          {copied ? "Share message copied" : ""}
+        </p>
         {error && (
-          <p role="alert" className="text-sm font-semibold text-crisis-dark">
+          <p role="alert" className="mt-3 text-sm font-semibold text-crisis-dark">
             {error}
           </p>
         )}
-      </div>
+      </section>
     </div>
   );
 }

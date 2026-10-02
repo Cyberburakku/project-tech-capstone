@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { motion, useReducedMotionConfig } from "framer-motion";
-import { ArrowLeft, ArrowRight, Award, BookOpen, Clock, Footprints, Lock, PenLine, Puzzle, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, Award, BookOpen, Clock, Footprints, Lock, PenLine, Puzzle, Trophy, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -165,9 +165,12 @@ function LessonFlow({ lessonId }: { lessonId: string }) {
       >
         {step === "learn" && (
           <>
-            <Badge variant="muted" className="mb-3">
-              <Clock aria-hidden /> {lesson.minutes} min
-            </Badge>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <Badge variant="muted">
+                <Clock aria-hidden /> {lesson.minutes} min
+              </Badge>
+              <ListenButton />
+            </div>
             <h1 ref={headingRef} tabIndex={-1} className="text-3xl font-extrabold tracking-tight text-ink outline-none sm:text-4xl">
               {lesson.title}
             </h1>
@@ -330,5 +333,25 @@ function LessonFlow({ lessonId }: { lessonId: string }) {
         )}
       </motion.div>
     </div>
+  );
+}
+
+/** Audio isn't built yet; the button says so plainly instead of doing nothing. */
+function ListenButton() {
+  const [asked, setAsked] = useState(false);
+  return (
+    <span className="inline-flex flex-wrap items-center gap-2">
+      <button
+        type="button"
+        onClick={() => setAsked(true)}
+        aria-describedby={asked ? "listen-note" : undefined}
+        className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-line bg-card px-4 text-sm font-bold text-ink hover:border-primary"
+      >
+        <Volume2 aria-hidden className="size-4 text-primary-dark" /> Listen to Lesson
+      </button>
+      <span id="listen-note" role="status" className="text-sm font-semibold text-ink-2">
+        {asked ? "Audio support coming soon." : ""}
+      </span>
+    </span>
   );
 }

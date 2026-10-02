@@ -22,10 +22,12 @@ export function ResourceCard({ match, rank }: { match: MatchedResource; rank?: n
         </div>
         {resource.audience && <Badge variant="achievement">For {resource.audience}</Badge>}
       </div>
-      <p className="mt-2 flex items-start gap-1.5 text-sm font-semibold text-primary-dark">
-        <Sparkles aria-hidden className="mt-0.5 size-4 shrink-0" />
-        {reason}
-      </p>
+      <div className="mt-3 rounded-2xl bg-primary-soft p-3">
+        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-primary-dark">
+          <Sparkles aria-hidden className="size-4 shrink-0" /> Why this recommendation?
+        </p>
+        <p className="mt-1 text-sm font-semibold text-ink">{reason}</p>
+      </div>
       <p className="mt-3 text-ink">{resource.shortDescription}</p>
       <ul className="mt-3 space-y-1 text-sm text-ink-soft">
         {resource.whatTheyHelpWith.slice(0, 3).map((w) => (
