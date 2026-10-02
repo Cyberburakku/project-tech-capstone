@@ -2,32 +2,16 @@
 
 Second Take is a static single-page app. It deploys to **Vercel** in a few minutes.
 
-## 1. Put the code on GitHub
+## 1. The code on GitHub
 
-This project currently lives in the `project-tech-capstone/` folder of this repository.
-
-**Option A: deploy from this repository.** Nothing to move. In Vercel, set **Root Directory** to `project-tech-capstone`.
-
-**Option B: make it its own repository** (for example `project-tech-capstone`):
-
-```bash
-# From the parent repository
-git subtree split --prefix project-tech-capstone -b project-tech-only
-mkdir ../project-tech-capstone && cd ../project-tech-capstone
-git init && git pull ../jayflow-recovery-hub project-tech-only
-
-# With the GitHub CLI
-gh repo create project-tech-capstone --public --source=. --push
-```
-
-The standalone repo already includes `.github/workflows/ci.yml`.
+The code lives in its own repository: https://github.com/Cyberburakku/project-tech-capstone
 
 ## 2. Deploy to Vercel
 
 1. Go to https://vercel.com/new and import the repository.
 2. Settings:
    - **Framework preset:** Vite (auto-detected)
-   - **Root Directory:** `project-tech-capstone` (Option A only)
+   - **Root Directory:** leave blank (the app is at the top of the repo)
    - **Build command:** `npm run build`
    - **Output directory:** `dist`
 3. **Environment variables** (optional):
@@ -58,8 +42,7 @@ Follow [SUPABASE_SETUP.md](./SUPABASE_SETUP.md), then add the two keys in Vercel
 
 GitHub Actions runs lint, type-check, tests, and a production build on every push and pull request:
 
-- In this repository: `.github/workflows/project-tech-ci.yml` (at the repo root, runs only when this folder changes)
-- As a standalone repository: `project-tech-capstone/.github/workflows/ci.yml`
+- `.github/workflows/ci.yml`
 
 Vercel's GitHub integration creates a preview deployment for every pull request automatically.
 

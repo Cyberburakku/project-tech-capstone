@@ -11,7 +11,7 @@ This guide gets Second Take running on your computer in about 5 minutes.
 ## 2. Get the code
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Cyberburakku/project-tech-capstone.git
 cd project-tech-capstone
 ```
 
